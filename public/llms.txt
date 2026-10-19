@@ -8,5 +8,5 @@
 - Avaliações no Google: nota 5,0 em 29 avaliações.
 
 ## Páginas
-- [Português](https://casa-aura-flamenca.vercel.app/)
-- [Español](https://casa-aura-flamenca.vercel.app/es/)
+- [Português](https://auradasartes.vercel.app/)
+- [Español](https://auradasartes.vercel.app/es/)

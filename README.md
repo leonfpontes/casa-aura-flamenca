@@ -81,4 +81,4 @@ Os traçados são definidos uma única vez, em `<symbol>`, pelo `LogoSprite`.
 
 ## Deploy
 
-Pronto para a Vercel (`vercel.json`). Hoje o endereço é `https://casa-aura-flamenca.vercel.app` (veja **SEO** para trocar pelo domínio próprio).
+Pronto para a Vercel (`vercel.json`). Hoje o endereço é `https://auradasartes.vercel.app` (veja **SEO** para trocar pelo domínio próprio).

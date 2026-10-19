@@ -16,7 +16,7 @@ export const profile = {
    * sitemap e dados estruturados (o build injeta em todos). Ao ligar um
    * domínio próprio na Vercel, troque só aqui.
    */
-  siteUrl: 'https://casa-aura-flamenca.vercel.app',
+  siteUrl: 'https://auradasartes.vercel.app',
   email: 'casaauraflamenca@gmail.com',
   /** Apenas dígitos, com DDI — usado para montar links do WhatsApp. */
   whatsapp: '5516982470203',
