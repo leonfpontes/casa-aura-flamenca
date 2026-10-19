@@ -54,3 +54,19 @@ crédito no site. **Recomendado: confirmar com cada fotógrafo o uso no site.**
 | casa/carol-robatini.webp | Carol Robatini na Festa da Casa (mantón vermelho, vestido de bolinhas) | Ale Ocdy |
 | casa/galeria-manton-asas, leque-rosa, leque-azul, lanterna, sevilhanas, mantones, manton-bordado, sorriso, guitarra, fandangos, giro | Espetáculos, festivais e Festa da Casa | Ale Ocdy |
 | casa/galeria-rosas, galeria-ensaio-pb | Ensaio da Nochebuena | Ricardo Cefalli (@ricardo.cefali.foto) |
+
+## Retratos dos professores (`images/professores/`)
+
+Fotos do Instagram de cada professor (perfis públicos), exceto a da Camila, enviada pelo Leonardo. A identificação foi
+conferida com a foto de perfil e/ou flyers oficiais do Aura das Artes. **Recomendado: confirmar com cada professor o uso
+do retrato no site.**
+
+| Arquivo | Origem | Crédito |
+|---|---|---|
+| ../casa/carol-robatini.webp | @flamenco_ribeirao_preto (Festa da Casa) | Ale Ocdy |
+| gustavo-rosa.webp | @percussaogustavorosa — espetáculo "A Compá del Tiempo" | Ale Ocdy (@alexandregalanteocdy) |
+| susana-vitali.webp | @susanavitali (post de 13/07/2024) | sem crédito na legenda |
+| camila.webp | enviada pelo Leonardo | — |
+| maiara.webp | @maiara_bg / @entrepilates.rp (recorte; post de 20/08/2026) | sem crédito na legenda |
+| nadia.webp | @nadialuciaparreira.parreira (bastidor, 17/11/2024; recorte) | sem crédito na legenda |
+| tania-nunes.webp | @tanianunes_8 (post de 08/11/2022; recorte) | sem crédito na legenda |

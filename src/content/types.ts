@@ -143,6 +143,8 @@ export interface Teacher {
   photo?: string;
   /** Crédito do fotógrafo do retrato. */
   photoCredit?: string;
+  /** Enquadramento do retrato no arco (object-position), quando o rosto não está no alto ao centro. */
+  photoPosition?: string;
 }
 
 export interface Teachers extends SectionHeading {

@@ -23,7 +23,14 @@ function Portrait({ t, lead }: { t: Teacher; lead: boolean }) {
     <div className="relative">
       <div data-portrait className="relative aspect-[3/4] overflow-hidden rounded-t-full">
         {t.photo ? (
-          <img src={t.photo} alt={`${t.name} — ${t.role}`} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[center_3%]" />
+          <img
+            src={t.photo}
+            alt={`${t.name} — ${t.role}`}
+            loading="lazy"
+            decoding="async"
+            style={{ objectPosition: t.photoPosition ?? 'center 3%' }}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
         ) : (
           <div
             aria-hidden="true"
@@ -113,6 +120,7 @@ export function Teachers() {
                     @{t.instagram} <Arrow direction="up-right" />
                   </TrackedLink>
                 )}
+                {t.photoCredit && <p className="label-caps mt-3 text-[0.55rem] text-muted-foreground/80">Foto: {t.photoCredit}</p>}
               </li>
             ))}
           </ul>
