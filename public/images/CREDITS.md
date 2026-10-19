@@ -25,3 +25,32 @@ Todas as mídias vêm de bancos gratuitos, com licenças que permitem uso comerc
 | videos/guitarra-detalhe(.mp4, .webm, -poster.jpg, -poster.webp) | Pexels | Alejandro JV | https://www.pexels.com/video/37439629/ | Pexels License |
 
 Licenças: https://www.pexels.com/license/ · https://unsplash.com/license · https://pixabay.com/service/license-summary/
+
+## Fotos da Casa Aura (`images/casa/`)
+
+Fotos reais, publicadas pela própria **Casa Aura Flamenca** no seu Perfil da Empresa no Google (coleção "Do proprietário"),
+usadas no site da casa. Fotos enviadas por clientes no Google **não** foram usadas.
+
+| Arquivo | Conteúdo | Crédito |
+|---|---|---|
+| casa/casa-alunas.webp | Alunas sorrindo e fazendo palmas na sala | Casa Aura Flamenca |
+| casa/iniciacao-turma.webp | Turma de preto fazendo palmas | Casa Aura Flamenca |
+| casa/baile-perfil.webp | Bailarina de perfil, de trança | Casa Aura Flamenca |
+| casa/cajon-sala.webp | Casal com bastões e músicos (cajón, bateria, violão) | Casa Aura Flamenca |
+| casa/festival-palco(.webp, -800.webp) | Casal de bailaores no palco, luz azul | **Helyana Manso** (fotógrafa; marca d'água na foto) — via Casa Aura Flamenca |
+| casa/galeria-espetaculo(.webp, -800.webp) | Elenco no fim de espetáculo | **Helyana Manso** (fotógrafa; marca d'água na foto) — via Casa Aura Flamenca |
+| casa/galeria-braceo.webp, galeria-castanholas.webp, galeria-turma.webp, galeria-roda.webp, galeria-palmas.webp, galeria-ao-ar-livre.webp | Aulas, turma e detalhes | Casa Aura Flamenca |
+
+## Fotos do Instagram da casa (`images/casa/`, @flamenco_ribeirao_preto)
+
+Fotos publicadas pela própria Casa Aura no Instagram. O fotógrafo de cada uma está na legenda do post e aparece como
+crédito no site. **Recomendado: confirmar com cada fotógrafo o uso no site.**
+
+| Arquivo | Conteúdo | Crédito |
+|---|---|---|
+| casa/castanholas-roda.webp | Mãos em roda com castanholas (aula) | Casa Aura Flamenca (sem crédito na legenda) |
+| casa/baile-manton-branco.webp | Fandangos, mantón branco | Ale Ocdy (@alexandregalanteocdy) |
+| casa/cajon-cantaor.webp | Cajón e cantaor no palco | Ale Ocdy |
+| casa/carol-solea.webp | Carol Robatini bailando Soleá no Perla Flamenca (Curitiba) | Lupe (@pratagelatina) |
+| casa/galeria-manton-asas, leque-rosa, leque-azul, lanterna, festa-da-casa, sevilhanas, mantones, manton-bordado, sorriso, guitarra, fandangos, giro | Espetáculos, festivais e Festa da Casa | Ale Ocdy |
+| casa/galeria-rosas, galeria-ensaio-pb | Ensaio da Nochebuena | Ricardo Cefalli (@ricardo.cefali.foto) |

@@ -84,6 +84,14 @@ describe('<App />', () => {
     expect(within(section).getByRole('link', { name: /29 avaliações/i })).toHaveAttribute('href', expect.stringContaining('google.com/maps'));
   });
 
+  it('fotos reais da casa aparecem com crédito, incluindo o da fotógrafa do festival', () => {
+    renderApp();
+    expect(within(document.getElementById('agenda')!).getByText('Foto: Helyana Manso')).toBeInTheDocument();
+    const casa = document.getElementById('casa')!;
+    expect(within(casa).getAllByRole('img').length).toBeGreaterThanOrEqual(7);
+    expect(casa.querySelector('img[src^="/images/casa/"]')).not.toBeNull();
+  });
+
   it('cada aula tem uma foto diferente', () => {
     renderApp();
     const aulas = document.getElementById('aulas')!;

@@ -109,7 +109,7 @@ export function buildJsonLd(content: SiteContent) {
         description: content.meta.description,
         url: absoluteUrl('/'),
         logo: absoluteUrl('/icons/icon-512.png'),
-        image: [absoluteUrl('/images/og-image.png'), absoluteUrl('/images/bailaora-saia-giro.webp')],
+        image: [absoluteUrl('/images/og-image.png'), absoluteUrl('/images/casa/casa-alunas.webp'), absoluteUrl('/images/casa/galeria-turma.webp')],
         telephone: '+55-16-98247-0203',
         email: profile.email,
         foundingDate: String(profile.since),
@@ -159,7 +159,7 @@ export function buildJsonLd(content: SiteContent) {
               endDate: f.endDate,
               eventStatus: 'https://schema.org/EventScheduled',
               eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-              image: absoluteUrl('/images/tablao-palco-vermelho.webp'),
+              image: absoluteUrl('/images/casa/festival-palco.webp'),
               location: {
                 '@type': 'Place',
                 name: f.venue,

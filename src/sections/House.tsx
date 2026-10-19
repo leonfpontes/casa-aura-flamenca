@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Abanico } from '@/components/art/Abanico';
 import { Halftone } from '@/components/art/Halftone';
+import { Album } from '@/components/common/Album';
 import { Container, SectionHeader } from '@/components/common/Section';
 import { Scene } from '@/components/motion/Scene';
 import { SplitReveal } from '@/components/motion/SplitReveal';
@@ -91,7 +92,7 @@ export function House() {
                 <div data-house-arch className="relative aspect-[4/5] overflow-hidden rounded-t-full" style={{ clipPath: 'inset(0% 0% 0% 0% round 999px 999px 0 0)' }}>
                   {/* A foto chega em retícula de lunares e se funde no duotônico vinho sobre marfim. */}
                   <div data-house-photo className="absolute inset-0">
-                    <Halftone src={stockImages.saiaGiro} alt={house.imageAlt} cell={8} className="absolute inset-0 text-foreground" />
+                    <Halftone src={stockImages.casaAlunas} alt={house.imageAlt} cell={8} className="absolute inset-0 text-foreground" />
                   </div>
                 </div>
                 {/* Moldura dupla dourada, como o arco de um pátio sevilhano. */}
@@ -102,7 +103,7 @@ export function House() {
                   <footer className="label-caps mt-3 text-muted-foreground">— {house.quote.author}</footer>
                 </blockquote>
               </div>
-              <figcaption className="label-caps mt-3 text-muted-foreground">{ui.stockPhoto}</figcaption>
+              <figcaption className="label-caps mt-3 text-muted-foreground">{house.imageCredit}</figcaption>
             </figure>
           </div>
 
@@ -121,6 +122,9 @@ export function House() {
               </li>
             ))}
           </ol>
+
+          {/* O álbum da casa: fotos reais publicadas pela Casa Aura. */}
+          <Album title={house.gallery.title} credit={house.gallery.credit} items={house.gallery.items} />
         </div>
       </Container>
     </Scene>

@@ -37,8 +37,8 @@ export function Agenda() {
           { clipPath: 'inset(18% 36% 8% 36% round 999px 999px 0px 0px)' },
           { clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)', duration: 1 },
         )
-          // No arco inicial, a bailaora (a ~30% da foto) aparece no centro; depois a foto volta ao quadro inteiro.
-          .fromTo('[data-poster-img]', { scale: 1.4, xPercent: 12, transformOrigin: '30% 60%' }, { scale: 1, xPercent: 0, duration: 1 }, 0)
+          // No arco inicial, o casal (a bailaora a ~40% da foto) aparece no centro; depois a foto volta ao quadro inteiro.
+          .fromTo('[data-poster-img]', { scale: 1.35, xPercent: 6, transformOrigin: '42% 55%' }, { scale: 1, xPercent: 0, duration: 1 }, 0)
           .to('[data-poster-arch]', { opacity: 0, duration: 0.3 }, 0.2)
           .fromTo('[data-poster-card]', { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6 }, 0.85);
       });
@@ -73,7 +73,7 @@ export function Agenda() {
                 className="absolute top-[18%] right-[36%] bottom-[8%] left-[36%] hidden rounded-t-full border border-[var(--ouro)] lg:block"
               />
               <figcaption className="label-caps absolute top-3 right-3 z-10 bg-background/80 px-2 py-1 text-muted-foreground lg:top-24 lg:right-8">
-                {ui.stockPhoto}
+                {featured.imageCredit ?? ui.stockPhoto}
               </figcaption>
             </figure>
           )}

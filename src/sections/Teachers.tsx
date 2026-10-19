@@ -23,7 +23,7 @@ function Portrait({ t, lead }: { t: Teacher; lead: boolean }) {
     <div className="relative">
       <div data-portrait className="relative aspect-[3/4] overflow-hidden rounded-t-full">
         {t.photo ? (
-          <img src={t.photo} alt={t.name} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+          <img src={t.photo} alt={t.name} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[center_20%]" />
         ) : (
           <div
             aria-hidden="true"
@@ -75,7 +75,10 @@ export function Teachers() {
         <div ref={ref}>
           {lead && (
             <article data-teacher className="mx-auto grid max-w-4xl items-center gap-8 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-12">
-              <Portrait t={lead} lead />
+              <figure>
+                <Portrait t={lead} lead />
+                {lead.photoCredit && <figcaption className="label-caps mt-3 text-center text-[0.6rem] text-muted-foreground">Foto: {lead.photoCredit}</figcaption>}
+              </figure>
               <div className="text-center sm:text-left">
                 <p className="label-caps text-signal">{lead.role}</p>
                 <h3 className="display mt-3 text-5xl sm:text-6xl">{lead.name}</h3>

@@ -69,7 +69,30 @@ export const ptBR: SiteContent = {
       { label: 'Google', value: 'Nota 5,0 em 29 avaliações' },
     ],
     quote: { text: 'O olé é reconhecimento e cumplicidade.', author: 'Casa Aura Flamenca' },
-    imageAlt: 'Bailaora de vestido vermelho girando a saia num tablao de parede branca',
+    imageAlt: 'Alunas da Casa Aura sorrindo e fazendo palmas na sala, sob a frase “Busca libertad” pintada na parede',
+    imageCredit: 'Foto: Casa Aura Flamenca',
+    gallery: {
+      title: 'Da casa',
+      credit: 'Fotos: Ale Ocdy, Ricardo Cefalli e Casa Aura Flamenca',
+      items: [
+        { image: 'gMantonAsas', alt: 'Bailaora abre o mantón branco como asas no palco, sob luz lilás', credit: 'Ale Ocdy' },
+        { image: 'gLequeRosa', alt: 'Bailaora de perfil com leque rosa aberto', credit: 'Ale Ocdy' },
+        { image: 'gLanterna', alt: 'Bailaora com uma lanterna acesa nas mãos, em cena', credit: 'Ale Ocdy' },
+        { image: 'gFesta', alt: 'Bailaora de mantón vermelho e vestido de bolinhas na Festa da Casa', credit: 'Ale Ocdy' },
+        { image: 'gGuitarra', alt: 'Guitarrista tocando violão flamenco em close', credit: 'Ale Ocdy' },
+        { image: 'gMantones', alt: 'Duas bailaoras com mantones de bolinhas', credit: 'Ale Ocdy' },
+        { image: 'gRosas', alt: 'Rosas vermelhas no coque de uma bailaora', credit: 'Ricardo Cefalli' },
+        { image: 'gSevilhanas', alt: 'Alunas dançando sevilhanas em duas filas, numa praça', credit: 'Ale Ocdy' },
+        { image: 'gLequeAzul', alt: 'Bailaora com leque azul atrás da cabeça', credit: 'Ale Ocdy' },
+        { image: 'gMantonBordado', alt: 'Mantón bordado em movimento', credit: 'Ale Ocdy' },
+        { image: 'gSorriso', alt: 'Bailaora sorrindo, com flor lilás no cabelo', credit: 'Ale Ocdy' },
+        { image: 'gFandangos', alt: 'Bailaora sorrindo de mantón vermelho, dançando fandangos', credit: 'Ale Ocdy' },
+        { image: 'gGiro', alt: 'Giro de bailaora em longa exposição, em tons de magenta', credit: 'Ale Ocdy' },
+        { image: 'gEnsaioPb', alt: 'Ensaio em preto e branco com mantón e saia de bolinhas', credit: 'Ricardo Cefalli' },
+        { image: 'galeriaTurma', alt: 'A turma da Casa Aura reunida no chão da sala, cerca de cinquenta alunos', credit: 'Casa Aura Flamenca' },
+        { image: 'galeriaBraceo', alt: 'Bailaora de cabelo ruivo e brinco turquesa em braceo, em aula', credit: 'Casa Aura Flamenca' },
+      ],
+    },
   },
   classes: {
     eyebrow: 'Aulas',
@@ -79,8 +102,8 @@ export const ptBR: SiteContent = {
     items: [
       {
         title: 'Iniciação ao flamenco',
-        image: 'aulaFlamenco',
-        imageAlt: 'Grupo de bailaoras com mantones vermelhos fazendo braceo num pátio andaluz',
+        image: 'castanholasRoda',
+        imageAlt: 'Mãos de alunas em roda segurando castanholas, vistas de cima',
         family: 'flamenco',
         audience: 'Quem começa do zero',
         description: 'Postura, braceo, palmas e os primeiros zapateados, contando o compás desde a primeira aula. Às segundas, 18h30.',
@@ -90,8 +113,8 @@ export const ptBR: SiteContent = {
       },
       {
         title: 'Baile flamenco — turmas regulares',
-        image: 'braceo',
-        imageAlt: 'Bailaora com os braços erguidos, em braceo, sob fumaça dourada',
+        image: 'bailManton',
+        imageAlt: 'Bailaora de mantón branco com os braços em arco, dançando fandangos',
         family: 'flamenco',
         audience: 'Alunos em continuidade', // CONFIRMAR níveis e horários
         description: 'Técnica, coreografia e improviso dentro dos palos, com preparação para o festival anual de alunos.',
@@ -101,8 +124,8 @@ export const ptBR: SiteContent = {
       },
       {
         title: 'Cajón e percussão flamenca',
-        image: 'cajon',
-        imageAlt: 'Músico sentado tocando cajón com as mãos, em preto e branco',
+        image: 'cajonCantaor',
+        imageAlt: 'Músico tocando cajón ao lado do cantaor, no palco',
         family: 'flamenco',
         audience: 'Músicos e curiosos', // CONFIRMAR se é turma regular ou oficina
         description: 'O instrumento que segura o compás do tablao: toques básicos de rumba, tangos e bulerías.',
@@ -256,6 +279,8 @@ export const ptBR: SiteContent = {
         role: 'Direção · baile flamenco',
         bio: 'Bailaora, coreógrafa e produtora cultural. Fundou a Casa Aura em 2012 e assina a direção artística dos festivais e do espetáculo "A Compá del Tiempo".',
         instagram: 'carol.rf.flamenca',
+        photo: '/images/casa/carol-solea.webp',
+        photoCredit: 'Lupe (@pratagelatina)',
       },
       {
         name: 'Gustavo Rosa',
@@ -312,8 +337,9 @@ export const ptBR: SiteContent = {
           href: 'https://www.sympla.com.br/evento/flamenco-puro-puro-flamenco---mescla-em-essencia-e-compas/3618097',
         },
         featured: true,
-        image: 'tablao',
-        imageAlt: 'Espetáculo de flamenco num palco de tablao em luz vermelha, com bailaora, bailaor e músicos',
+        image: 'festivalPalco',
+        imageAlt: 'Bailaora de vestido vermelho de babados e bailaor de colete preto no palco, sob luz azul',
+        imageCredit: 'Foto: Helyana Manso',
       },
       {
         title: 'A Compá del Tiempo',

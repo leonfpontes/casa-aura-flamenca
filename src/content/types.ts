@@ -76,6 +76,10 @@ export interface House extends SectionHeading {
   facts: { label: string; value: string }[];
   quote: { text: string; author: string };
   imageAlt: string;
+  /** Legenda/crédito da foto da casa. */
+  imageCredit: string;
+  /** Álbum de fotos reais da casa. */
+  gallery: { title: string; credit: string; items: { image: import('./profile').StockImage; alt: string; credit: string }[] };
 }
 
 /** Família da aula — define o tom da ficha e o filtro. */
@@ -137,6 +141,8 @@ export interface Teacher {
    * Só com autorização da pessoa; sem foto, aparece o monograma.
    */
   photo?: string;
+  /** Crédito do fotógrafo do retrato. */
+  photoCredit?: string;
 }
 
 export interface Teachers extends SectionHeading {
@@ -156,6 +162,8 @@ export interface EventItem {
   /** Foto ilustrativa (chave de `stockImages`). */
   image?: import('./profile').StockImage;
   imageAlt?: string;
+  /** Crédito da foto (ex.: "Foto: Helyana Manso"). */
+  imageCredit?: string;
   /** Ingressos ou mais informações. */
   link?: { label: string; href: string };
   /** Destaque da agenda (o próximo grande evento). */

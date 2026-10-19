@@ -58,9 +58,9 @@ export const profile = {
 export type Profile = typeof profile;
 
 /**
- * Banco de imagens e vídeos (Pexels, Unsplash e Pixabay — licenças livres, sem
- * atribuição obrigatória; créditos em public/images/CREDITS.md). São ilustrativos:
- * troque pelas fotos da casa quando a Carol enviar, mantendo os mesmos nomes.
+ * Imagens do site. As de `/images/casa/` são fotos reais da Casa Aura (publicadas
+ * pela própria casa no Google); as demais são de bancos livres (Pexels, Unsplash,
+ * Pixabay — sem atribuição obrigatória). Créditos em public/images/CREDITS.md.
  */
 export const stockImages = {
   saiaGiro: '/images/bailaora-saia-giro.webp',
@@ -79,6 +79,38 @@ export const stockImages = {
   pilates: '/images/pilates-800.webp',
   circulares: '/images/dancas-circulares-800.webp',
   aulaFlamenco: '/images/aula-flamenco-grupo-800.webp',
+  // Fotos REAIS da casa (publicadas pela Casa Aura Flamenca no Google; créditos em CREDITS.md).
+  casaAlunas: '/images/casa/casa-alunas.webp',
+  iniciacao: '/images/casa/iniciacao-turma.webp',
+  bailePerfil: '/images/casa/baile-perfil.webp',
+  cajonSala: '/images/casa/cajon-sala.webp',
+  festivalPalco: '/images/casa/festival-palco.webp',
+  galeriaBraceo: '/images/casa/galeria-braceo.webp',
+  galeriaCastanholas: '/images/casa/galeria-castanholas.webp',
+  galeriaTurma: '/images/casa/galeria-turma.webp',
+  galeriaRoda: '/images/casa/galeria-roda.webp',
+  galeriaPalmas: '/images/casa/galeria-palmas.webp',
+  galeriaArLivre: '/images/casa/galeria-ao-ar-livre.webp',
+  galeriaEspetaculo: '/images/casa/galeria-espetaculo-800.webp',
+  // Fotos do Instagram da casa (@flamenco_ribeirao_preto) — créditos dos fotógrafos no conteúdo e em CREDITS.md.
+  castanholasRoda: '/images/casa/castanholas-roda.webp',
+  bailManton: '/images/casa/baile-manton-branco.webp',
+  cajonCantaor: '/images/casa/cajon-cantaor.webp',
+  carolSolea: '/images/casa/carol-solea.webp',
+  gMantonAsas: '/images/casa/galeria-manton-asas.webp',
+  gLequeRosa: '/images/casa/galeria-leque-rosa.webp',
+  gLequeAzul: '/images/casa/galeria-leque-azul.webp',
+  gLanterna: '/images/casa/galeria-lanterna.webp',
+  gFesta: '/images/casa/galeria-festa-da-casa.webp',
+  gSevilhanas: '/images/casa/galeria-sevilhanas.webp',
+  gMantones: '/images/casa/galeria-mantones.webp',
+  gMantonBordado: '/images/casa/galeria-manton-bordado.webp',
+  gSorriso: '/images/casa/galeria-sorriso.webp',
+  gGuitarra: '/images/casa/galeria-guitarra.webp',
+  gRosas: '/images/casa/galeria-rosas.webp',
+  gFandangos: '/images/casa/galeria-fandangos.webp',
+  gGiro: '/images/casa/galeria-giro.webp',
+  gEnsaioPb: '/images/casa/galeria-ensaio-pb.webp',
 } as const;
 
 /**
@@ -96,6 +128,15 @@ export const stockImagePosition: Partial<Record<keyof typeof stockImages, string
   yoga: '68% center',
   pilates: '45% 35%',
   circulares: '55% 58%',
+  iniciacao: 'center 35%',
+  bailePerfil: '45% 30%',
+  cajonSala: 'center 55%',
+  casaAlunas: '40% 45%',
+  castanholasRoda: 'center 45%',
+  bailManton: 'center 25%',
+  cajonCantaor: '30% 40%',
+  carolSolea: 'center 20%',
+  gLequeRosa: '60% center',
   tablao: 'center 40%',
 };
 
