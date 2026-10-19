@@ -1,0 +1,244 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+/* Modo suave (ver motionPreference.ts): classe definida no <html> antes do primeiro paint. */
+@custom-variant reduced (&:where(.reduced-motion, .reduced-motion *));
+
+/*
+ * Duas vozes, tiradas da própria logo:
+ * - Marcellus (Astigmatic, SIL OFL): serifa de traço alargado, parente direta do
+ *   "AURA" e do "das artes" — títulos e números grandes.
+ * - Archivo (Omnibus-Type, SIL OFL): o "CENTRO CULTURAL" espaçado — rótulos,
+ *   navegação e texto corrido.
+ * Ambas auto-hospedadas e pré-carregadas (index.html).
+ */
+@font-face {
+  font-family: "Marcellus";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/marcellus.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 400 800;
+  font-stretch: 100% 120%;
+  font-display: swap;
+  src: url("/fonts/archivo.woff2") format("woff2");
+}
+
+/*
+ * Identidade "tablao": a paleta vem da logo e das artes do Instagram da casa —
+ * vinho de veludo (a cortina do palco), ouro (o traço da bailarina), marfim
+ * (as letras), carmim (o vestido de flamenca) e a noite do tablao.
+ *
+ * Só 4 cores são "primárias" por cena (fundo, tinta, sinal e texto-sobre-sinal);
+ * o resto deriva com color-mix. As cores de marca (--vinho, --ouro…) são fixas
+ * e usadas pela logo e pela arte generativa (azulejos e lunares).
+ */
+:root {
+  --radius: 0rem;
+  --marfim: #fbf1e3;
+  --areia: #f1dcc0;
+  --ouro-claro: #fbd99a;
+  --ouro: #e8b25e;
+  --ouro-escuro: #c4893a;
+  --carmim: #a52023;
+  --vinho: #4a0710;
+  --tinto: #2b0307;
+  --noite: #1a0205;
+
+  --background: var(--marfim);
+  --foreground: var(--tinto);
+  --signal: var(--carmim);
+  --signal-foreground: var(--marfim);
+
+  --destructive: #b3261e;
+}
+
+/*
+ * Cores derivadas — declaradas na raiz E em cada tom de cena. Custom properties
+ * herdam o valor já calculado, então cada seção com `.tone-*` precisa recalcular
+ * as derivadas a partir das suas próprias 4 cores primárias.
+ */
+:root,
+.tone-marfim,
+.tone-areia,
+.tone-vinho,
+.tone-carmim,
+.tone-ouro,
+.tone-noite {
+  --card: color-mix(in oklab, var(--background) 92%, white);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --primary: var(--foreground);
+  --primary-foreground: var(--background);
+  --secondary: color-mix(in oklab, var(--background) 92%, var(--foreground));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in oklab, var(--background) 92%, var(--foreground));
+  --muted-foreground: color-mix(in oklab, var(--foreground) 70%, var(--background));
+  --accent: color-mix(in oklab, var(--background) 90%, var(--foreground));
+  --accent-foreground: var(--foreground);
+  --border: color-mix(in oklab, var(--background) 76%, var(--foreground));
+  --input: var(--border);
+  --ring: var(--signal);
+}
+
+.dark {
+  --background: var(--noite);
+  --foreground: var(--marfim);
+  --signal: var(--ouro);
+  --signal-foreground: var(--tinto);
+}
+
+/*
+ * Tons de cena. Cada <section> de cena usa a sua classe `.tone-*` e pinta o
+ * próprio fundo: a nova cor chega subindo junto com a seção, presa à rolagem.
+ * O SceneThemeController lê os mesmos valores para o header e o fundo da página.
+ */
+.tone-marfim { --background: #fbf1e3; --foreground: #2b0307; --signal: #a52023; --signal-foreground: #fbf1e3; }
+.tone-areia { --background: #f1dcc0; --foreground: #2b0307; --signal: #4a0710; --signal-foreground: #fbf1e3; }
+.tone-vinho { --background: #4a0710; --foreground: #fbf1e3; --signal: #e8b25e; --signal-foreground: #2b0307; }
+.tone-carmim { --background: #a52023; --foreground: #fbf1e3; --signal: #fbd99a; --signal-foreground: #2b0307; }
+.tone-ouro { --background: #e8b25e; --foreground: #2b0307; --signal: #4a0710; --signal-foreground: #fbf1e3; }
+.tone-noite { --background: #1a0205; --foreground: #fbf1e3; --signal: #e8b25e; --signal-foreground: #2b0307; }
+
+/* Modo escuro: as cenas claras viram a noite do tablao; o vinho se inverte para marfim. */
+.dark .tone-marfim { --background: #1a0205; --foreground: #fbf1e3; --signal: #e8b25e; --signal-foreground: #2b0307; }
+.dark .tone-areia { --background: #2b0a0c; --foreground: #fbf1e3; --signal: #e8b25e; --signal-foreground: #2b0307; }
+.dark .tone-ouro { --background: #3a2410; --foreground: #fbf1e3; --signal: #fbd99a; --signal-foreground: #2b0307; }
+
+@theme inline {
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Marcellus", "Iowan Old Style", Georgia, serif;
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 2);
+  --radius-xl: calc(var(--radius) * 3);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-signal: var(--signal);
+  --color-signal-foreground: var(--signal-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  .font-display {
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-padding-top: 4.5rem;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-feature-settings: "tnum";
+  }
+  ::selection {
+    background: var(--signal);
+    color: var(--signal-foreground);
+  }
+  /* Modo suave: sem animações CSS em loop nem deslocamentos; transições curtas de cor/opacidade continuam. */
+  .reduced-motion *, .reduced-motion *::before, .reduced-motion *::after {
+    animation: none !important;
+    transition-property: color, background-color, border-color, opacity !important;
+  }
+}
+
+/* Contorno de texto para numerais gigantes (traço na cor da tinta da cena). */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--foreground);
+}
+
+/* Linha de SplitText com máscara (para revelar linhas "de baixo para cima"). */
+.split-line {
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+/* Rótulo em caixa alta e bem espaçado, como o "CENTRO CULTURAL" da logo. */
+@utility label-caps {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-stretch: 110%;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Título de cartaz de espetáculo: a serifa alargada da logo, grande e justa. */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1;
+}
+
+/*
+ * Destaque: a palavra ganha a cor do sinal e o traço da bailarina por baixo —
+ * a mesma curva dourada que atravessa o "AURA" da logo.
+ */
+@utility highlight {
+  color: var(--signal);
+  padding-bottom: 0.14em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C 50 22, 120 20, 198 2 C 125 15, 55 16, 2 6 Z' fill='%23e8b25e'/%3E%3C/svg%3E") no-repeat left bottom / 100% 0.3em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Sublinhado de link editorial: fio fino que engrossa no hover. */
+@utility link-rule {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-thickness 150ms, color 150ms;
+  &:hover {
+    text-decoration-thickness: 2px;
+    color: var(--signal);
+  }
+}
+
+
+@keyframes scroll-hint {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Cursor do compás: o tempo atual "pulsa" como uma palma. */
+@keyframes palma {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}

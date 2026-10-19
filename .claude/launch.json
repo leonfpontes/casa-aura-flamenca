@@ -1,0 +1,7 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "casa-aura-dev", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3100 },
+    { "name": "casa-aura-preview", "runtimeExecutable": "npm", "runtimeArgs": ["run", "preview"], "port": 4174 }
+  ]
+}

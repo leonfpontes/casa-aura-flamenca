@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Casa Aura Flamenca · Aulas de flamenco em Ribeirão Preto | Aura das Artes</title>
+    <meta
+      name="description"
+      content="Escola de flamenco desde 2012, dirigida por Carol Robatini. Aulas de baile, cajón, dança do ventre, yoga e mais no Centro Cultural Aura das Artes — Av. Nove de Julho, 537, Ribeirão Preto."
+    />
+    <meta name="theme-color" content="#4a0710" />
+    <link rel="canonical" href="https://www.casaauraflamenca.com.br/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" hreflang="pt-BR" href="https://www.casaauraflamenca.com.br/" />
+    <link rel="alternate" hreflang="es" href="https://www.casaauraflamenca.com.br/" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:url" content="https://www.casaauraflamenca.com.br/" />
+    <meta property="og:title" content="Casa Aura Flamenca · Aura das Artes" />
+    <meta property="og:description" content="Aulas de flamenco desde 2012 em Ribeirão Preto — baile, cajón, compás e cultura flamenca. Aula experimental pelo WhatsApp." />
+    <meta property="og:site_name" content="Casa Aura Flamenca" />
+    <meta property="og:image" content="https://www.casaauraflamenca.com.br/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Logo do Centro Cultural Aura das Artes sobre veludo vinho" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Casa Aura Flamenca · Aura das Artes" />
+    <meta name="twitter:description" content="Aulas de flamenco desde 2012 em Ribeirão Preto." />
+    <meta name="twitter:image" content="https://www.casaauraflamenca.com.br/images/og-image.png" />
+
+    <!-- Dados estruturados (SEO local): escola de dança com endereço, telefone e horário -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "DanceSchool",
+        "name": "Casa Aura Flamenca",
+        "alternateName": "Aura das Artes — Centro Cultural",
+        "url": "https://www.casaauraflamenca.com.br",
+        "logo": "https://www.casaauraflamenca.com.br/favicon.svg",
+        "image": "https://www.casaauraflamenca.com.br/images/og-image.png",
+        "telephone": "+55-16-98247-0203",
+        "email": "casaauraflamenca@gmail.com",
+        "foundingDate": "2012",
+        "founder": { "@type": "Person", "name": "Carol Robatini" },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Nove de Julho, 537, sala 01",
+          "addressLocality": "Ribeirão Preto",
+          "addressRegion": "SP",
+          "postalCode": "14025-010",
+          "addressCountry": "BR"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": -21.183884, "longitude": -47.812548 },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "10:30", "closes": "12:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "17:00", "closes": "21:30" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "17:00", "closes": "21:30" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:30", "closes": "12:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "18:00", "closes": "21:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "10:00", "closes": "12:00" }
+        ],
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "29" },
+        "sameAs": [
+          "https://www.instagram.com/flamenco_ribeirao_preto/",
+          "https://www.instagram.com/auradasartesribeiraopreto/",
+          "https://www.youtube.com/@CasaAuraFlamenca",
+          "https://linktr.ee/CasaAuraFlamenca"
+        ]
+      }
+    </script>
+
+    <!-- Fontes do primeiro quadro: pré-carregadas para não "pular" o layout -->
+    <link rel="preload" href="/fonts/marcellus.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Tema e modo de movimento aplicados antes do primeiro paint (sem "flash") -->
+    <script>
+      try {
+        var h = document.documentElement;
+        var t = localStorage.getItem('aura:theme');
+        if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) h.classList.add('dark');
+        var m = localStorage.getItem('aura:motion') || 'system';
+        var os = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (os) h.classList.add('os-reduced-motion');
+        if (m === 'reduced' || (m === 'system' && os)) h.classList.add('reduced-motion');
+      } catch (e) {}
+    </script>
+
+    <!--
+      Google Analytics 4 — adiado e opcional. Preencha GA_ID com o ID da
+      propriedade da casa (G-XXXXXXX). Vazio = sem GA (o site usa o NoopTracker).
+      A fila (dataLayer/gtag) existe desde já, então nenhum evento se perde; o
+      script só baixa com a página ociosa.
+    -->
+    <script>
+      var GA_ID = '';
+      if (GA_ID) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+        addEventListener('load', function () {
+          var load = function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+            document.head.appendChild(s);
+          };
+          'requestIdleCallback' in window ? requestIdleCallback(load, { timeout: 4000 }) : setTimeout(load, 2500);
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>Este site precisa de JavaScript. Contato: (16) 98247-0203 · casaauraflamenca@gmail.com</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

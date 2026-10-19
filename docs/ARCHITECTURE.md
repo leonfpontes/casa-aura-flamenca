@@ -1,0 +1,75 @@
+# Arquitetura
+
+Site estático (SPA de página única) em React 19 + TypeScript, com build do Vite e deploy na Vercel.
+
+## Camadas
+
+```
+src/
+├── content/              # DOMÍNIO — o quê o site diz
+│   ├── types.ts          #   modelo tipado (SiteContent) — contrato entre conteúdo e UI
+│   ├── profile.ts        #   identidade e canais (independente de idioma)
+│   ├── sections.ts       #   ordem e numeração das seções (§ 01, § 02…)
+│   └── locales/          #   pt-BR.ts, es.ts — um SiteContent por idioma
+├── lib/                  # SERVIÇOS — como o site se comporta
+│   ├── contact/          #   ContactLinkBuilder (WhatsApp, mailto, telefone)
+│   ├── analytics/        #   AnalyticsTracker (interface) + GtagTracker / NoopTracker
+│   ├── i18n/             #   registro de idiomas + LocaleProvider/useContent
+│   ├── theme/            #   ThemeProvider (claro/escuro, persistido)
+│   ├── services.tsx      #   container de DI (ServicesProvider/useServices)
+│   └── storage.ts        #   localStorage tolerante a falhas
+│   ├── motion/           #   GSAP (registro), SceneThemeController, SceneDirector, SmoothScroll (Lenis)
+│   └── art/              #   PRNG e noise determinísticos para a arte generativa
+├── hooks/                # useInView, useSteppedScene, useCanvas, useReducedMotion
+├── components/
+│   ├── ui/               # primitivas shadcn/ui (button, sheet, accordion)
+│   ├── common/           # peças do design system (Container, SectionHeader, Reveal…)
+│   ├── motion/           # Scene, SplitReveal, CountUp, Magnetic, SceneIndicator
+│   ├── art/              # Lunares, CompasWheel (+ useCompas), Azulejo, Halftone, BackgroundVideo
+│   ├── brand/            # Logo + LogoSprite (traçados vetorizados em logoPaths.ts)
+│   └── layout/           # Header, Footer
+├── sections/             # APRESENTAÇÃO — uma seção da página por arquivo
+├── App.tsx               # composição: registro seção → componente
+└── main.tsx              # bootstrap: providers + render
+```
+
+O fluxo de dependências é **sections → components/common → lib → content**. O conteúdo não importa nada de UI.
+
+## Decisões
+
+| Decisão | Por quê |
+|---|---|
+| **Conteúdo tipado em TS, não JSON nem CMS** | Garante, em tempo de compilação, que os dois idiomas tenham o mesmo formato. Um teste reforça a paridade de estrutura e de campos invariantes (ids, links, status). |
+| **DI via contexto (`ServicesProvider`)** | Os componentes dependem de `AnalyticsTracker`, não do `gtag`. Nos testes, um fake é injetado sem mocks globais. |
+| **Classes para serviços, funções para UI** | `ContactLinkBuilder` encapsula e valida o telefone uma única vez (POO). Componentes React continuam funcionais e sem estado oculto. |
+| **Registro de seções (`SECTION_ORDER` + mapa em `App.tsx`)** | A ordem da página e a numeração dos cabeçalhos vêm da mesma lista. Reordenar o funil é editar uma linha. |
+| **shadcn/ui** | Os componentes ficam no repositório, então são adaptáveis ao design editorial (ex.: a variante `signal` do `Button`). O Radix fornece a acessibilidade do Sheet e do Accordion. |
+| **Analytics como abstração** | Trocar o GA4 por Plausible, PostHog etc. é criar uma nova classe que implementa `AnalyticsTracker`, sem tocar em componentes. |
+| **Cenas com GSAP + ScrollTrigger + Lenis** | GSAP é o padrão da indústria para animação orientada a scroll (pins, scrub, SplitText). O Lenis suaviza o scroll e roda no mesmo relógio do GSAP, o que evita tremidas nos pins. Toda animação fica dentro de `gsap.matchMedia()`, então é revertida sozinha com reduced motion ou ao mudar de breakpoint. |
+| **Tons por seção + `SceneThemeController`** | Cada `<section>` usa sua classe `.tone-*`, então a cor muda presa à rolagem. A classe `SceneThemeController` só leva o tom da cena ativa ao header e ao `<html>`. Ela recebe `root` e `ToneReader` por injeção (testável sem DOM real) e interpola com `color-mix` do navegador, sem converter oklch em JS. |
+| **Logo em `<symbol>` por parte** | Os traçados vetorizados pesam ~78 KB. São definidos uma vez (`LogoSprite`) e cada `<Logo>` usa `<use>`: o HTML não repete os traçados, e o hero ainda anima letras e ornamento separadamente. |
+| **Palmas sintetizadas (WebAudio)** | O compás toca sem nenhum arquivo de áudio: ruído filtrado, mais forte nos acentos. Só começa com um clique do visitante. |
+| **Encaixe (snap) só no celular** | No desktop o Lenis já suaviza o scroll, e o encaixe do ScrollTrigger brigava com ele, puxando a página de volta no fim dos trilhos. |
+| **Pins resolvem o `<section>` via `closest()`** | No React a ref do pai só é ligada depois dos efeitos de layout dos filhos, então o filho localiza a própria cena no DOM (`sceneSectionOf`). |
+| **Pré-renderização no build** (`entry-server.tsx` + `scripts/prerender.mjs`) | O HTML chega pronto e o React só "hidrata", então o conteúdo aparece antes do JS, o que é decisivo no celular. O primeiro render é determinístico (idioma padrão, ícones de tema via CSS, `Reveal` visível) para não divergir do HTML do servidor. |
+| **Gatilhos de scroll se autocorrigem** (`SmoothScroll.tsx`) | Um `ResizeObserver` na página recalcula o ScrollTrigger quando a altura muda depois do cálculo inicial: fontes sem cache, troca de idioma, "Ler mais". Sem isso, cores e cenas disparam no lugar errado após um recarregamento forçado. |
+| **Sem roteador** | É uma página única com âncoras. Menos dependências e melhor SEO para uma landing page. |
+
+## Testes
+
+| Arquivo | Cobre |
+|---|---|
+| `lib/contact/ContactLinkBuilder.test.ts` | Codificação de URLs, formatação e validação |
+| `lib/analytics/AnalyticsTracker.test.ts` | Factory, fallback e tolerância a erro |
+| `lib/i18n/registry.test.ts` | Resolução do idioma inicial |
+| `content/content.test.ts` | Paridade pt-BR/ES, navegação × seções, acentos do compás dentro do ciclo |
+| `lib/motion/SceneThemeController.test.ts` | Tons, interpolação e descarte |
+| `components/motion/motion.test.tsx` | Contador (parse/format) e localização da cena |
+| `lib/art/*.test.ts`, `components/art/art.test.tsx` | PRNG/noise determinísticos, roda do compás e renderização da arte |
+| `App.test.tsx` | Integração: renderização, CTAs de aula experimental, ingressos, analytics, troca de idioma, palos, tema, depoimentos |
+
+```bash
+npm test               # execução única
+npm run test:watch     # modo watch
+npm run test:coverage  # cobertura
+```
