@@ -23,7 +23,7 @@ function Portrait({ t, lead }: { t: Teacher; lead: boolean }) {
     <div className="relative">
       <div data-portrait className="relative aspect-[3/4] overflow-hidden rounded-t-full">
         {t.photo ? (
-          <img src={t.photo} alt={t.name} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[center_20%]" />
+          <img src={t.photo} alt={`${t.name} — ${t.role}`} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[center_3%]" />
         ) : (
           <div
             aria-hidden="true"

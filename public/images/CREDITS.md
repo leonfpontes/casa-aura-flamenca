@@ -51,6 +51,6 @@ crédito no site. **Recomendado: confirmar com cada fotógrafo o uso no site.**
 | casa/castanholas-roda.webp | Mãos em roda com castanholas (aula) | Casa Aura Flamenca (sem crédito na legenda) |
 | casa/baile-manton-branco.webp | Fandangos, mantón branco | Ale Ocdy (@alexandregalanteocdy) |
 | casa/cajon-cantaor.webp | Cajón e cantaor no palco | Ale Ocdy |
-| casa/carol-solea.webp | Carol Robatini bailando Soleá no Perla Flamenca (Curitiba) | Lupe (@pratagelatina) |
-| casa/galeria-manton-asas, leque-rosa, leque-azul, lanterna, festa-da-casa, sevilhanas, mantones, manton-bordado, sorriso, guitarra, fandangos, giro | Espetáculos, festivais e Festa da Casa | Ale Ocdy |
+| casa/carol-robatini.webp | Carol Robatini na Festa da Casa (mantón vermelho, vestido de bolinhas) | Ale Ocdy |
+| casa/galeria-manton-asas, leque-rosa, leque-azul, lanterna, sevilhanas, mantones, manton-bordado, sorriso, guitarra, fandangos, giro | Espetáculos, festivais e Festa da Casa | Ale Ocdy |
 | casa/galeria-rosas, galeria-ensaio-pb | Ensaio da Nochebuena | Ricardo Cefalli (@ricardo.cefali.foto) |

@@ -77,7 +77,6 @@ export const es: SiteContent = {
         { image: 'gMantonAsas', alt: 'Bailaora abre el mantón blanco como alas en el escenario, bajo luz lila', credit: 'Ale Ocdy' },
         { image: 'gLequeRosa', alt: 'Bailaora de perfil con abanico rosa abierto', credit: 'Ale Ocdy' },
         { image: 'gLanterna', alt: 'Bailaora con un farol encendido en las manos, en escena', credit: 'Ale Ocdy' },
-        { image: 'gFesta', alt: 'Bailaora con mantón rojo y vestido de lunares en la Fiesta de la Casa', credit: 'Ale Ocdy' },
         { image: 'gGuitarra', alt: 'Guitarrista tocando la guitarra flamenca en primer plano', credit: 'Ale Ocdy' },
         { image: 'gMantones', alt: 'Dos bailaoras con mantones de lunares', credit: 'Ale Ocdy' },
         { image: 'gRosas', alt: 'Rosas rojas en el moño de una bailaora', credit: 'Ricardo Cefalli' },
@@ -278,8 +277,8 @@ export const es: SiteContent = {
         role: 'Dirección · baile flamenco',
         bio: 'Bailaora, coreógrafa y productora cultural. Fundó la Casa Aura en 2012 y firma la dirección artística de los festivales y del espectáculo "A Compá del Tiempo".',
         instagram: 'carol.rf.flamenca',
-        photo: '/images/casa/carol-solea.webp',
-        photoCredit: 'Lupe (@pratagelatina)',
+        photo: '/images/casa/carol-robatini.webp',
+        photoCredit: 'Ale Ocdy',
       },
       {
         name: 'Gustavo Rosa',
