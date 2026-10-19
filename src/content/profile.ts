@@ -48,11 +48,28 @@ export const stockImages = {
   aulaEstudio: '/images/aula-danca-estudio-800.webp',
   yoga: '/images/yoga-aula-800.webp',
   dancaDoVentre: '/images/danca-do-ventre-800.webp',
+  cajon: '/images/cajon-percussao-800.webp',
+  dancaCigana: '/images/danca-cigana-800.webp',
+  stiletto: '/images/stiletto-salto-800.webp',
+  pilates: '/images/pilates-800.webp',
+  circulares: '/images/dancas-circulares-800.webp',
+  aulaFlamenco: '/images/aula-flamenco-grupo-800.webp',
 } as const;
+
+/** Enquadramento das fotos que não são centradas (ex.: a dançarina embaixo do quadro). */
+export const stockImagePosition: Partial<Record<keyof typeof stockImages, string>> = {
+  stiletto: 'center 75%',
+};
 
 export type StockImage = keyof typeof stockImages;
 
 export const stockVideos = {
-  hero: { mp4: '/videos/hero-flamenco.mp4', webm: '/videos/hero-flamenco.webm', poster: '/videos/hero-flamenco-poster.webp' },
+  hero: {
+    mp4: '/videos/hero-flamenco.mp4',
+    webm: '/videos/hero-flamenco.webm',
+    poster: '/videos/hero-flamenco-poster.webp',
+    portrait: { mp4: '/videos/hero-flamenco-vertical.mp4', webm: '/videos/hero-flamenco-vertical.webm', poster: '/videos/hero-flamenco-vertical-poster.webp' },
+  },
+  tablao: { mp4: '/videos/tablao-flamenco.mp4', webm: '/videos/tablao-flamenco.webm', poster: '/videos/tablao-flamenco-poster.webp' },
   guitarra: { mp4: '/videos/guitarra-detalhe.mp4', webm: '/videos/guitarra-detalhe.webm', poster: '/videos/guitarra-detalhe-poster.webp' },
 } as const;

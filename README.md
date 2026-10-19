@@ -41,8 +41,9 @@ pelas fotos da casa, basta substituir os arquivos mantendo os mesmos nomes.
 
 ## Logo
 
-A logo do Aura das Artes foi **vetorizada a partir da arte original**: o potrace foi aplicado separadamente às camadas
-creme e dourada. O resultado está em `src/components/brand/logoPaths.ts` e é desenhado pelo `Logo.tsx`:
+A logo do Aura das Artes foi **vetorizada a partir da arte original**. A imagem foi ampliada 4×, a cor de cada ponto foi
+decidida pela vizinhança (sem halo entre creme e ouro), a máscara passou por limpeza morfológica (sem furos) e as
+curvas foram suavizadas no potrace. O resultado está em `src/components/brand/logoPaths.ts` e é desenhado pelo `Logo.tsx`:
 
 - as letras usam `currentColor`, então ficam creme sobre vinho e vinho sobre creme;
 - a bailarina e o traço usam um degradê de ouro.

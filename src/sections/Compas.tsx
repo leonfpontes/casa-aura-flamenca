@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Pause, Play } from 'lucide-react';
+import { Abanico } from '@/components/art/Abanico';
 import { BackgroundVideo } from '@/components/art/BackgroundVideo';
 import { CompasWheel, useCompas } from '@/components/art/CompasWheel';
 import { stockVideos } from '@/content/profile';
@@ -8,6 +9,7 @@ import { Reveal } from '@/components/common/Reveal';
 import { Scene } from '@/components/motion/Scene';
 import { Button } from '@/components/ui/button';
 import { useContent } from '@/lib/i18n/LocaleProvider';
+import { gsap, MEDIA, useGSAP } from '@/lib/motion/gsap';
 import { cn } from '@/lib/utils';
 
 /**
@@ -21,6 +23,21 @@ export function Compas() {
   const [playing, setPlaying] = useState(false);
   const palo = compas.palos[selected] ?? compas.palos[0]!;
   const current = useCompas({ beats: palo.beats, accents: palo.accents, bpm: palo.bpm, playing });
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MEDIA.motion, () => {
+        // O leque abre preso ao scroll enquanto a roda gira até o lugar; os palos entram em fila.
+        const enter = { trigger: ref.current, start: 'top 85%', end: 'top 30%', scrub: true };
+        gsap.fromTo('[data-compas-fan]', { '--open': 0, rotate: -40 }, { '--open': 1, rotate: 0, ease: 'none', scrollTrigger: enter });
+        gsap.fromTo('[data-compas-wheel]', { rotate: -180, scale: 0.6 }, { rotate: 0, scale: 1, ease: 'none', scrollTrigger: enter });
+        gsap.from('[data-palo]', { x: -40, opacity: 0, stagger: 0.06, duration: 0.8, ease: 'expo.out', scrollTrigger: { trigger: ref.current, start: 'top 75%' } });
+      });
+    },
+    { scope: ref },
+  );
 
   return (
     <Scene
@@ -28,21 +45,22 @@ export function Compas() {
       label={compas.eyebrow}
       tone="noite"
       art={
-        // A guitarra ao fundo, quase no escuro: o compás nasce do toque.
+        // O tablao ao fundo, quase no escuro — bailaora, guitarra e cajón: o compás em cena.
         <div className="absolute inset-y-0 right-0 w-full lg:w-3/5">
-          <BackgroundVideo {...stockVideos.guitarra} className="opacity-25 grayscale-[40%]" />
+          <BackgroundVideo {...stockVideos.tablao} className="opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-background/20" />
         </div>
       }
     >
       <Container>
         <SectionHeader id="compas" heading={compas} />
-        <div className="grid gap-12 lg:grid-cols-12">
+        <div ref={ref} className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div role="tablist" aria-label={compas.eyebrow} className="divide-y border-y">
               {compas.palos.map((p, i) => (
                 <button
                   key={p.name}
+                  data-palo
                   type="button"
                   role="tab"
                   aria-selected={i === selected}
@@ -65,8 +83,14 @@ export function Compas() {
 
           <Reveal className="lg:col-span-7">
             <div id="compas-painel" role="tabpanel" className="grid items-center gap-8 sm:grid-cols-2">
-              <div className="mx-auto aspect-square w-full max-w-xs">
-                <CompasWheel beats={palo.beats} accents={palo.accents} current={current} />
+              <div className="relative mx-auto aspect-square w-full max-w-xs">
+                {/* O leque abre por trás da roda — o pino do leque é o centro do relógio. */}
+                <div data-compas-fan aria-hidden="true" className="absolute inset-x-[-30%] top-[-30%] opacity-60" style={{ ['--open' as string]: 1 }}>
+                  <Abanico pleats={19} spread={200} />
+                </div>
+                <div data-compas-wheel className="relative size-full rounded-full bg-background/80 p-2">
+                  <CompasWheel beats={palo.beats} accents={palo.accents} current={current} />
+                </div>
               </div>
               <div>
                 <p className="label-caps text-muted-foreground">

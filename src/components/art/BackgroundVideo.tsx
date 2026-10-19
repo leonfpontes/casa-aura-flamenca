@@ -6,6 +6,8 @@ export interface BackgroundVideoProps {
   mp4: string;
   webm: string;
   poster: string;
+  /** Versão vertical para telas em retrato (celular). */
+  portrait?: { mp4: string; webm: string; poster: string };
   className?: string;
   /** Texto alternativo. Sem ele, o vídeo é decorativo. */
   label?: string;
@@ -16,7 +18,7 @@ export interface BackgroundVideoProps {
  * gastar bateria nem dados) e, no modo suave, fica parado no pôster.
  * Sem `autoPlay` no HTML: quem decide tocar é o efeito, já sabendo a preferência.
  */
-export function BackgroundVideo({ mp4, webm, poster, className, label }: BackgroundVideoProps) {
+export function BackgroundVideo({ mp4, webm, poster, portrait, className, label }: BackgroundVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const reduced = useReducedMotion();
 
@@ -49,6 +51,8 @@ export function BackgroundVideo({ mp4, webm, poster, className, label }: Backgro
       aria-hidden={label ? undefined : true}
       className={cn('pointer-events-none block h-full w-full object-cover', className)}
     >
+      {portrait && <source src={portrait.webm} type="video/webm" media="(orientation: portrait)" />}
+      {portrait && <source src={portrait.mp4} type="video/mp4" media="(orientation: portrait)" />}
       <source src={webm} type="video/webm" />
       <source src={mp4} type="video/mp4" />
     </video>

@@ -1,59 +1,47 @@
-import { useRef } from 'react';
-import { SECTION_ORDER, sectionNumber } from '@/content/sections';
-import { gsap, MEDIA, useGSAP } from '@/lib/motion/gsap';
+import { SECTION_ORDER, actNumeral } from '@/content/sections';
+import { useContent } from '@/lib/i18n/LocaleProvider';
 import { useSceneDirector } from '@/lib/motion/SceneDirector';
+import { cn } from '@/lib/utils';
 
 /**
- * Marcador de capítulo fixo (só em telas ≥ 1536px, onde há margem livre ao lado do conteúdo): "§ 03 / 11 — Serviços" + régua de
- * progresso da página. Dá a sensação de capítulos, não de scroll infinito.
+ * Marcador de atos (telas ≥ 1536px, na margem livre): uma coluna de lunares,
+ * um por ato. O ato em cena vira um lunar dourado maior, com "Ato III · Compás"
+ * ao lado; os já vistos ficam cheios, os próximos só contornados. Clicável.
  */
 export function SceneIndicator() {
   const { active } = useSceneDirector();
-  const rootRef = useRef<HTMLDivElement>(null);
-  const labelRef = useRef<HTMLSpanElement>(null);
-  const number = active ? sectionNumber(active.chapter) : '';
-
-  // Régua de progresso da página inteira.
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add(`${MEDIA.desktop} and (min-width: 1536px)`, () => {
-        gsap.fromTo(
-          '[data-progress]',
-          { scaleY: 0 },
-          { scaleY: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } },
-        );
-      });
-    },
-    { scope: rootRef },
-  );
-
-  // Troca de capítulo: o rótulo sai por cima e o novo entra por baixo.
-  useGSAP(
-    () => {
-      if (!labelRef.current) return;
-      const mm = gsap.matchMedia();
-      mm.add(MEDIA.motion, () => {
-        gsap.fromTo(labelRef.current, { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: 'expo.out' });
-      });
-    },
-    { dependencies: [active?.chapter], scope: rootRef },
-  );
+  const { ui, nav } = useContent();
+  const current = active ? (SECTION_ORDER as readonly string[]).indexOf(active.chapter) : -1;
+  const labelOf = (id: string) => nav.items.find((i) => i.id === id)?.label ?? id;
 
   return (
-    <div
-      ref={rootRef}
-      aria-hidden="true"
-      className="pointer-events-none fixed bottom-8 left-6 z-40 hidden items-end gap-3 2xl:flex"
-    >
-      <span className="relative h-24 w-px bg-foreground/20">
-        <span data-progress className="absolute inset-0 origin-top bg-signal" />
-      </span>
-      <span className="label-caps overflow-hidden text-foreground [writing-mode:vertical-rl] rotate-180">
-        <span ref={labelRef} className="inline-block">
-          {active && number ? `§ ${number} / ${String(SECTION_ORDER.length).padStart(2, '0')} — ${active.label}` : ''}
-        </span>
-      </span>
-    </div>
+    <nav aria-label={ui.act} className="fixed top-1/2 left-6 z-40 hidden -translate-y-1/2 2xl:block">
+      <ol className="flex flex-col gap-3">
+        {SECTION_ORDER.map((id, i) => (
+          <li key={id}>
+            <a href={`#${id}`} className="group flex items-center gap-3" aria-current={i === current ? 'step' : undefined}>
+              <span
+                className={cn(
+                  'block rounded-full border transition-all duration-500',
+                  i === current
+                    ? 'size-3.5 border-[var(--ouro)] bg-[var(--ouro)]'
+                    : i < current
+                      ? 'size-2 border-foreground/70 bg-foreground/70'
+                      : 'size-2 border-foreground/50 bg-transparent group-hover:bg-foreground/50',
+                )}
+              />
+              <span
+                className={cn(
+                  'label-caps whitespace-nowrap transition-all duration-500',
+                  i === current ? 'translate-x-0 text-foreground opacity-100' : '-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-70',
+                )}
+              >
+                {ui.act} {actNumeral(id)} · {labelOf(id)}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
   );
 }

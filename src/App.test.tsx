@@ -75,14 +75,19 @@ describe('<App />', () => {
     expect(within(compas).getByRole('button', { name: /ouvir as palmas/i })).toHaveAttribute('aria-pressed', 'false');
   });
 
-  it('navega entre depoimentos', async () => {
-    const { user } = renderApp();
+  it('mostra as avaliações reais do Google, com autor abreviado', () => {
+    renderApp();
     const section = document.getElementById('depoimentos')!;
-    expect(within(section).getByText(/01 de 02/)).toBeInTheDocument();
-    await user.click(within(section).getByRole('button', { name: /próximo/i }));
-    expect(within(section).getByText(/02 de 02/)).toBeInTheDocument();
-    await user.click(within(section).getByRole('button', { name: /próximo/i }));
-    expect(within(section).getByText(/01 de 02/)).toBeInTheDocument();
+    expect(within(section).getAllByRole('figure').length).toBeGreaterThanOrEqual(8);
+    expect(within(section).getByText('Mayra S.')).toBeInTheDocument();
+    expect(within(section).getByRole('link', { name: /29 avaliações/i })).toHaveAttribute('href', expect.stringContaining('google.com/maps'));
+  });
+
+  it('cada aula tem uma foto diferente', () => {
+    renderApp();
+    const aulas = document.getElementById('aulas')!;
+    const srcs = [...aulas.querySelectorAll('img')].map((img) => img.getAttribute('src'));
+    expect(new Set(srcs).size).toBe(srcs.length);
   });
 
   it('alterna o tema escuro', async () => {

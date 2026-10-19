@@ -14,7 +14,14 @@ Todas as mídias vêm de bancos gratuitos, com licenças que permitem uso comerc
 | images/aula-danca-estudio(.webp, -800.webp) | Pexels | Kampus Production | https://www.pexels.com/photo/8957645/ | Pexels License |
 | images/yoga-aula(.webp, -800.webp) | Pexels | Yan Krukau | https://www.pexels.com/photo/8436684/ | Pexels License |
 | images/danca-do-ventre(.webp, -800.webp) | Pexels | Christian Alemu | https://www.pexels.com/photo/26584361/ | Pexels License |
-| videos/hero-flamenco(.mp4, .webm, -poster.jpg, -poster.webp) | Pexels | Anya Juárez Tenorio | https://www.pexels.com/video/a-woman-in-a-white-dress-is-dancing-on-stage-26607095/ | Pexels License |
+| images/cajon-percussao(.webp, -800.webp) | Pexels | Jean Marc Bonnel | https://www.pexels.com/photo/32775236/ | Pexels License |
+| images/danca-cigana(.webp, -800.webp) | Pexels | Anya Juárez Tenorio | https://www.pexels.com/photo/30365663/ | Pexels License |
+| images/stiletto-salto(.webp, -800.webp) | Pexels | Inna Mykytas | https://www.pexels.com/photo/16763006/ | Pexels License |
+| images/pilates(.webp, -800.webp) | Pexels | khezez \| خزاز | https://www.pexels.com/photo/35553893/ | Pexels License |
+| images/dancas-circulares(.webp, -800.webp) | Pexels | juliane Monari | https://www.pexels.com/photo/24513670/ | Pexels License |
+| images/aula-flamenco-grupo(.webp, -800.webp) | Pexels | Belén Montero | https://www.pexels.com/photo/33869351/ | Pexels License |
+| videos/hero-flamenco(.mp4, .webm, -poster.jpg, -poster.webp) e videos/hero-flamenco-vertical(.mp4, .webm, -poster.webp) | Pexels | Ines Diaz Cervantes | https://www.pexels.com/video/two-women-are-singing-and-dancing-on-stage-26888983/ | Pexels License |
+| videos/tablao-flamenco(.mp4, .webm, -poster.webp) | Pexels | Eva Navarro | https://www.pexels.com/video/vibrant-flamenco-performance-outdoors-35330824/ | Pexels License |
 | videos/guitarra-detalhe(.mp4, .webm, -poster.jpg, -poster.webp) | Pexels | Alejandro JV | https://www.pexels.com/video/37439629/ | Pexels License |
 
 Licenças: https://www.pexels.com/license/ · https://unsplash.com/license · https://pixabay.com/service/license-summary/

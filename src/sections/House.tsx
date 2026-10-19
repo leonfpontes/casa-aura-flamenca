@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Azulejo } from '@/components/art/Azulejo';
+import { Abanico } from '@/components/art/Abanico';
 import { Halftone } from '@/components/art/Halftone';
 import { Container, SectionHeader } from '@/components/common/Section';
 import { Scene } from '@/components/motion/Scene';
@@ -27,12 +27,20 @@ export function House() {
           stagger: 0.1,
           duration: 1,
           ease: 'expo.out',
-          scrollTrigger: { trigger: '[data-pillars]', start: 'top 88%', toggleActions: 'play none none reverse' },
+          scrollTrigger: { trigger: '[data-pillars]', start: 'top 70%', toggleActions: 'play none none reverse' },
         });
+        // O leque abre preso ao scroll (celular e desktop).
+        gsap.fromTo('[data-house-fan]', { '--open': 0 }, { '--open': 1, ease: 'none', scrollTrigger: { trigger: '[data-pillars]', start: 'top 95%', end: 'top 45%', scrub: true } });
       });
       mm.add(MEDIA.desktop, () => {
-        // O painel de azulejos "derrapa" levemente contra o texto (parallax).
-        gsap.fromTo('[data-house-panel]', { yPercent: 8 }, { yPercent: -8, ease: 'none', scrollTrigger: { trigger: ref.current, scrub: true } });
+        // O arco se abre conforme a leitura: começa estreito e alto, termina inteiro.
+        gsap.fromTo(
+          '[data-house-arch]',
+          { clipPath: 'inset(6% 26% 0% 26% round 999px 999px 0 0)' },
+          { clipPath: 'inset(0% 0% 0% 0% round 999px 999px 0 0)', ease: 'none', scrollTrigger: { trigger: '[data-house-arch]', start: 'top 85%', end: 'center 45%', scrub: true } },
+        );
+        gsap.fromTo('[data-house-photo]', { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '[data-house-arch]', start: 'top bottom', end: 'bottom 40%', scrub: true } });
+        gsap.from('[data-house-quote]', { xPercent: 30, opacity: 0, ease: 'none', scrollTrigger: { trigger: '[data-house-arch]', start: 'center 80%', end: 'bottom 60%', scrub: true } });
       });
     },
     { scope: ref },
@@ -78,14 +86,18 @@ export function House() {
             </div>
 
             <figure className="lg:col-span-5">
-              <div data-house-panel className="relative aspect-[4/5] overflow-hidden">
-                {/* A foto chega em retícula de lunares e se funde no duotônico vinho sobre marfim. */}
-                <Halftone src={stockImages.saiaGiro} alt={house.imageAlt} cell={8} className="absolute inset-0 text-foreground" />
-                <div aria-hidden="true" className="absolute inset-x-0 top-0 h-16">
-                  <Azulejo seed={`casa-${new Date().getDate()}`} size={32} />
+              {/* A foto mora num arco andaluz, que se abre conforme a leitura avança. */}
+              <div className="relative">
+                <div data-house-arch className="relative aspect-[4/5] overflow-hidden rounded-t-full" style={{ clipPath: 'inset(0% 0% 0% 0% round 999px 999px 0 0)' }}>
+                  {/* A foto chega em retícula de lunares e se funde no duotônico vinho sobre marfim. */}
+                  <div data-house-photo className="absolute inset-0">
+                    <Halftone src={stockImages.saiaGiro} alt={house.imageAlt} cell={8} className="absolute inset-0 text-foreground" />
+                  </div>
                 </div>
-                {/* Citação pousada sobre o painel, como uma placa no pátio. */}
-                <blockquote className="tone-vinho absolute inset-x-6 bottom-6 bg-background p-5 text-foreground lg:inset-x-8 lg:bottom-8">
+                {/* Moldura dupla dourada, como o arco de um pátio sevilhano. */}
+                <div aria-hidden="true" className="pointer-events-none absolute -inset-3 rounded-t-full border border-[var(--ouro)]/70" />
+                {/* Citação pousada sobre o arco, como uma placa no pátio. */}
+                <blockquote data-house-quote className="tone-vinho relative -mt-20 ml-6 bg-background p-5 text-foreground shadow-[0_20px_40px_-20px_rgb(0_0_0/0.5)] lg:-ml-12">
                   <p className="font-display text-2xl leading-tight sm:text-3xl">“{house.quote.text}”</p>
                   <footer className="label-caps mt-3 text-muted-foreground">— {house.quote.author}</footer>
                 </blockquote>
@@ -94,10 +106,16 @@ export function House() {
             </figure>
           </div>
 
-          <ol data-pillars className="mt-12 grid grid-cols-2 gap-px bg-border lg:mt-20 lg:grid-cols-4">
+          {/* Pilares como as varetas de um leque: o abanico abre e cada pilar acende. */}
+          <div data-pillars className="mt-16 lg:mt-24">
+            <div data-house-fan className="mx-auto w-56 sm:w-72" style={{ ['--open' as string]: 1 }}>
+              <Abanico />
+            </div>
+          </div>
+          <ol className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
             {house.pillars.map((pillar, i) => (
-              <li key={pillar.title} data-pillar className="bg-background p-4 lg:p-6 lg:pt-5">
-                <p className="label-caps text-signal">{String(i + 1).padStart(2, '0')}</p>
+              <li key={pillar.title} data-pillar className="border-t border-[var(--ouro)]/60 pt-4 text-center">
+                <p className="font-display text-xl text-signal">{['I', 'II', 'III', 'IV'][i]}</p>
                 <h3 className="mt-3 font-display text-2xl lg:mt-6 lg:text-3xl">{pillar.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{pillar.description}</p>
               </li>

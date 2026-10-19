@@ -59,20 +59,13 @@ export function Scene({ id, chapter = id, label, tone, children, art, className,
       const layers = outer.querySelectorAll('[data-scene-body], [data-scene-art]');
       const mm = gsap.matchMedia();
       // Só opacidade: vale também no modo suave (não causa enjoo).
+      // Só a entrada, curta: a cena nunca some antes da próxima chegar — sem telas
+      // vazias entre os atos. A transição de verdade é a nova cor subindo por cima.
       mm.add(MEDIA.wide, () => {
-        // Entrada e saída se sobrepõem: nunca há uma tela vazia entre cenas.
-        gsap.fromTo(layers, { opacity: 0 }, { opacity: 1, ease: 'none', scrollTrigger: { trigger: outer, start: 'top bottom', end: 'top 60%', scrub: true } });
-        gsap.to(layers, {
-          opacity: 0,
-          ease: 'none',
-          immediateRender: false,
-          scrollTrigger: { trigger: outer, start: 'bottom 40%', end: 'bottom 5%', scrub: true },
-        });
+        gsap.fromTo(layers, { opacity: 0 }, { opacity: 1, ease: 'none', scrollTrigger: { trigger: outer, start: 'top bottom', end: 'top 80%', scrub: true } });
       });
-      // No celular as seções são mais altas que a tela: só a entrada é animada,
-      // para que nada se apague enquanto ainda está sendo lido.
       mm.add(MEDIA.narrow, () => {
-        gsap.fromTo(layers, { opacity: 0 }, { opacity: 1, ease: 'none', scrollTrigger: { trigger: outer, start: 'top bottom', end: 'top 70%', scrub: true } });
+        gsap.fromTo(layers, { opacity: 0 }, { opacity: 1, ease: 'none', scrollTrigger: { trigger: outer, start: 'top bottom', end: 'top 85%', scrub: true } });
       });
     },
     { scope: outerRef, dependencies: [activate, tone, label] },

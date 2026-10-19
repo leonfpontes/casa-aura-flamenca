@@ -43,7 +43,7 @@ export const ptBR: SiteContent = {
       { value: '7', label: 'Festivais de alunos' },
       { value: '29', label: 'Avaliações · nota 5,0' },
     ],
-    mediaAlt: 'Bailaora de flamenco girando a saia sob a luz do palco',
+    mediaAlt: 'Bailaora de saia de volantes e mantón de bolinhas dançando num tablao, com cantaora e guitarrista',
   },
   house: {
     eyebrow: 'A casa',
@@ -77,8 +77,8 @@ export const ptBR: SiteContent = {
     items: [
       {
         title: 'Iniciação ao flamenco',
-        image: 'sapatos',
-        imageAlt: 'Pés de bailaora com sapatos de flamenco vermelhos sobre piso de lajotas',
+        image: 'aulaFlamenco',
+        imageAlt: 'Grupo de bailaoras com mantones vermelhos fazendo braceo num pátio andaluz',
         family: 'flamenco',
         audience: 'Quem começa do zero',
         description: 'Postura, braceo, palmas e os primeiros zapateados, contando o compás desde a primeira aula. Às segundas, 18h30.',
@@ -99,8 +99,8 @@ export const ptBR: SiteContent = {
       },
       {
         title: 'Cajón e percussão flamenca',
-        image: 'castanholas',
-        imageAlt: 'Mãos tocando castanholas sobre saia vermelha de franjas',
+        image: 'cajon',
+        imageAlt: 'Músico sentado tocando cajón com as mãos, em preto e branco',
         family: 'flamenco',
         audience: 'Músicos e curiosos', // CONFIRMAR se é turma regular ou oficina
         description: 'O instrumento que segura o compás do tablao: toques básicos de rumba, tangos e bulerías.',
@@ -120,8 +120,8 @@ export const ptBR: SiteContent = {
       },
       {
         title: 'Dança cigana',
-        image: 'palcoSaia',
-        imageAlt: 'Bailarina girando a saia de babados, com leque e flor no cabelo',
+        image: 'dancaCigana',
+        imageAlt: 'Bailarina cigana vista de cima, com lenço, braceletes dourados e saia aberta em roda',
         family: 'danca',
         audience: 'Todas as idades',
         description: 'Saias, giros e a herança romani que corre nas veias do próprio flamenco.',
@@ -131,8 +131,8 @@ export const ptBR: SiteContent = {
       },
       {
         title: 'Stiletto',
-        image: 'aulaEstudio',
-        imageAlt: 'Grupo dançando com energia num estúdio de piso de madeira',
+        image: 'stiletto',
+        imageAlt: 'Dançarina de body rendado e salto alto dourado em pose num palco escuro',
         family: 'danca',
         audience: 'Jovens e adultos',
         description: 'Dança de salto, atitude e presença de palco, com a Cia Susana Vitali.',
@@ -153,8 +153,8 @@ export const ptBR: SiteContent = {
       },
       {
         title: 'Pilates',
-        image: 'yoga',
-        imageAlt: 'Alunas em aula de movimento num estúdio claro',
+        image: 'pilates',
+        imageAlt: 'Mulher fazendo exercício ajoelhada num reformer de pilates',
         family: 'corpo',
         audience: 'Todos os corpos',
         description: 'Fortalecimento do centro e alinhamento postural para dançar com saúde.',
@@ -164,8 +164,8 @@ export const ptBR: SiteContent = {
       },
       {
         title: 'Danças circulares',
-        image: 'aulaEstudio',
-        imageAlt: 'Grupo de mulheres dançando juntas num estúdio',
+        image: 'circulares',
+        imageAlt: 'Três mulheres de mãos dadas dançando em roda num campo ao pôr do sol',
         family: 'corpo',
         audience: 'Todas as idades',
         description: 'Danças em roda, de mãos dadas, de várias culturas do mundo: movimento como encontro.',
@@ -277,11 +277,18 @@ export const ptBR: SiteContent = {
   testimonials: {
     eyebrow: 'Vozes',
     title: 'O que diz quem já entrou na roda.',
-    description: 'Trechos de avaliações públicas da casa no Google.',
+    description: 'Trechos literais de avaliações públicas da casa no Google — todas as 29 com 5 estrelas.',
     items: [
-      // CONFIRMAR: trocar/ampliar com depoimentos de alunos, com autorização de cada um.
-      { quote: 'Um ambiente acolhedor e animadíssimo.', author: 'Aluna', context: 'Avaliação no Google' },
-      { quote: 'Um espaço acolhedor e de muita arte.', author: 'Aluna', context: 'Avaliação no Google' },
+      { quote: 'Amei a experiência do curso intensivo, que já fechei para fazer as aulas. As aulas foram um mix de cultura, dança e essência.', author: 'Mayra S.', context: 'Avaliação no Google' },
+      { quote: 'A Carol é uma professora incrível, além de aprender técnica de como bailar, aprendo muito sobre a sonoridade, o ritmo, o equilíbrio, a expressão e o encontro comigo mesma através do flamenco.', author: 'Fernanda L.', context: 'Avaliação no Google' },
+      { quote: 'Aprende-se o verdadeiro flamenco, sua cultura e história. Você aprende a bailar o flamenco de verdade!', author: 'Henrique F.', context: 'Avaliação no Google' },
+      { quote: 'A Casa Aura é muito mais do que uma escola de dança flamenca, é uma oportunidade de se redescobrir como pessoa na dança, nos eventos, nos espetáculos, no convívio.', author: 'Camila G.', context: 'Avaliação no Google' },
+      { quote: 'Flamenco (baile, cante e instrumentos) é uma arte maravilhosa, e na Casa Aura com Carol Robatini, consigo desfrutar desta arte com alegria e propriedade.', author: 'Maria Cândida R.', context: 'Avaliação no Google' },
+      { quote: '… os alunos da Casa são animadíssimos. Podemos desfrutar de muito aprendizado e passar momentos deliciosos.', author: 'Karina C.', context: 'Avaliação no Google' },
+      { quote: 'A escola é bem localizada, o espaço é acolhedor e vale muito a pena fazer as aulas com a Carol (e ainda poder contar com aulas extras com professores e músicos para complementar).', author: 'Izabela M.', context: 'Avaliação no Google' },
+      { quote: 'O flamenco é uma dança que trabalha não apenas a parte física, mas traz à tona toda a força e a feminilidade que carregamos dentro de nós.', author: 'Thaís C.', context: 'Avaliação no Google' },
+      { quote: 'O melhor lugar para aula de flamenco em Ribeirão Preto, sempre traz artistas de referência nacionais e internacionais.', author: 'André R.', context: 'Avaliação no Google' },
+      { quote: 'Escola de flamenco com ambiente acolhedor e animadíssimoo!! Turma super integrada e professora top!!', author: 'Cleide S.', context: 'Avaliação no Google' },
     ],
     sourceNote: 'Nota 5,0 em 29 avaliações no Google',
   },
@@ -397,6 +404,7 @@ export const ptBR: SiteContent = {
     when: 'Quando',
     where: 'Onde',
     stockPhoto: 'Imagem ilustrativa',
+    act: 'Ato',
     audience: 'Para',
     teacher: 'Com',
   },

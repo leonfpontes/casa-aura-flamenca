@@ -126,6 +126,11 @@ export interface Teacher {
   bio: string;
   /** Perfil do Instagram (sem @), quando houver. */
   instagram?: string;
+  /**
+   * Retrato (caminho em /public, ex.: '/images/professores/carol.webp').
+   * Só com autorização da pessoa; sem foto, aparece o monograma.
+   */
+  photo?: string;
 }
 
 export interface Teachers extends SectionHeading {
@@ -195,6 +200,8 @@ export interface UiStrings {
   when: string;
   where: string;
   stockPhoto: string;
+  /** "Ato" / "Acto" — cada seção é um ato do espetáculo. */
+  act: string;
   audience: string;
   teacher: string;
 }

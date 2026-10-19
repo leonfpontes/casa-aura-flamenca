@@ -1,4 +1,6 @@
-import { Azulejo } from '@/components/art/Azulejo';
+import { useRef } from 'react';
+import { Manton } from '@/components/art/Manton';
+import { Telon } from '@/components/art/Telon';
 import { Arrow } from '@/components/common/Arrow';
 import { Container } from '@/components/common/Section';
 import { TrackedLink } from '@/components/common/TrackedLink';
@@ -7,32 +9,62 @@ import { Scene } from '@/components/motion/Scene';
 import { SplitReveal } from '@/components/motion/SplitReveal';
 import { Button } from '@/components/ui/button';
 import { profile } from '@/content/profile';
-import { sectionNumber } from '@/content/sections';
+import { Remate } from '@/components/common/Section';
+import { actNumeral } from '@/content/sections';
 import { useContent } from '@/lib/i18n/LocaleProvider';
+import { gsap, MEDIA, useGSAP } from '@/lib/motion/gsap';
 import { useServices } from '@/lib/services';
 
 /** Encerramento: o convite sozinho no palco, com o endereço como num ingresso. */
 export function Visit() {
-  const { contact: copy } = useContent();
+  const { contact: copy, ui } = useContent();
   const { contact } = useServices();
   const { address } = profile;
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      // Fim do espetáculo: o telón volta a se fechar até virar moldura, preso ao scroll.
+      mm.add(MEDIA.desktop, () => {
+        const close = { trigger: ref.current, start: 'top 80%', end: 'bottom bottom', scrub: true };
+        gsap.fromTo('[data-telon-left]', { xPercent: -100 }, { xPercent: -84, ease: 'none', scrollTrigger: close });
+        gsap.fromTo('[data-telon-right]', { xPercent: 100 }, { xPercent: 84, ease: 'none', scrollTrigger: close });
+      });
+      mm.add(MEDIA.mobile, () => {
+        gsap.set('[data-telon-left]', { xPercent: -100 });
+        gsap.set('[data-telon-right]', { xPercent: 100 });
+      });
+      mm.add({ moving: MEDIA.motion }, (ctx) => {
+        if (!ctx.conditions?.moving) gsap.set('[data-telon-left], [data-telon-right]', { autoAlpha: 0 });
+      });
+    },
+    { scope: ref },
+  );
 
   return (
     <Scene
       id="visite"
       label={copy.eyebrow}
       tone="carmim"
-      className="pb-36 lg:pb-40"
+      className="pb-44 lg:pb-52"
       art={
-        <div className="absolute inset-x-0 bottom-0 h-20 lg:h-24">
-          <Azulejo seed="visite" size={48} every={0.6} />
+        <div ref={ref} className="absolute inset-0">
+          <Telon className="z-0 [&>div:last-child]:hidden" />
+          {/* O mantón de Manila estendido na beira do palco: flores bordadas e flecos ao vento do scroll. */}
+          <div className="absolute inset-x-0 bottom-0 h-32 lg:h-40">
+            <Manton seed="visite" />
+          </div>
         </div>
       }
     >
       <Container>
-        <p className="label-caps border-t border-foreground/40 pt-5 text-muted-foreground">
-          § {sectionNumber('visite')} — {copy.eyebrow}
-        </p>
+        <div className="flex flex-col items-center text-center">
+          <p className="label-caps text-muted-foreground">
+            {ui.act} {actNumeral('visite')} <span className="px-1 text-[var(--ouro)]">·</span> {copy.eyebrow}
+          </p>
+          <Remate className="mt-4" />
+        </div>
         <div className="mt-10 grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <SplitReveal as="h2" id="visite-title" mode="chars" className="display text-6xl text-balance sm:text-8xl">
