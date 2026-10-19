@@ -7,9 +7,10 @@ import type { SiteContent } from '../types';
 export const es: SiteContent = {
   locale: 'es',
   meta: {
-    title: 'Casa Aura Flamenca · Clases de flamenco en Ribeirão Preto | Aura das Artes',
+    title: 'Clases de Flamenco en Ribeirão Preto | Casa Aura Flamenca',
     description:
-      'Escuela de flamenco desde 2012, dirigida por Carol Robatini. Clases de baile, cajón, danza del vientre, yoga y más en el Centro Cultural Aura das Artes — Av. Nove de Julho, 537, Ribeirão Preto (Brasil).',
+      'Escuela de flamenco desde 2012 en Ribeirão Preto (Brasil), con Carol Robatini: baile, cajón y compás desde cero, además de danza del vientre y yoga.',
+    imageAlt: 'Logo del Centro Cultural Aura das Artes, casa de la Casa Aura Flamenca, sobre terciopelo granate',
   },
   nav: {
     items: [
@@ -27,6 +28,7 @@ export const es: SiteContent = {
     skipToContent: 'Saltar al contenido',
   },
   hero: {
+    kicker: 'Escuela de flamenco en Ribeirão Preto',
     greeting: 'Arte y flamenco desde 2012',
     badge: 'Iniciación · lunes, 18:30',
     title: 'Aquí el flamenco se aprende',
@@ -164,7 +166,7 @@ export const es: SiteContent = {
       {
         title: 'Danzas circulares',
         image: 'circulares',
-        imageAlt: 'Tres mujeres de la mano bailando en corro en un campo al atardecer',
+        imageAlt: 'Grupo de mujeres tomadas de la mano bailando en círculo en un prado verde de montaña, al atardecer',
         family: 'corpo',
         audience: 'Todas las edades',
         description: 'Danzas en corro, de la mano, de muchas culturas del mundo: el movimiento como encuentro.',
@@ -395,6 +397,7 @@ export const es: SiteContent = {
     },
     readMore: 'Leer más',
     readLess: 'Leer menos',
+    swipeHint: 'Desliza para ver las clases',
     scrollHint: 'Desliza',
     previous: 'Anterior',
     next: 'Siguiente',

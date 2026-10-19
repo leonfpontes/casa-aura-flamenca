@@ -23,21 +23,30 @@ export function Classes() {
 
   return (
     <Scene id="aulas" label={classes.eyebrow} tone="carmim" className="py-0 lg:min-h-0 lg:py-0">
+      {/*
+        Desktop: trilho horizontal fixo, guiado pelo scroll. Celular: carrossel
+        nativo de deslizar com o dedo (encaixe em cada cartão) — sem fixar, o
+        texto de cada aula aparece inteiro em qualquer altura de tela.
+      */}
       <HorizontalTrack
+        media="desktop"
         label={classes.eyebrow}
         pace={0.9}
         pinClassName="pt-8 pb-5 lg:pt-6"
         header={
           <Container>
             <SectionHeader id="aulas" heading={classes} compact />
+            <p aria-hidden="true" className="label-caps -mt-4 mb-6 text-center text-foreground/70 lg:hidden">
+              {ui.swipeHint} <span className="text-[var(--ouro)]">→</span>
+            </p>
           </Container>
         }
-        className="flex gap-6 pr-[12vw] pl-4 sm:pl-8 lg:gap-10 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))]"
+        className="flex gap-5 pr-[12vw] pl-4 max-lg:snap-x max-lg:snap-mandatory max-lg:scroll-pl-4 max-lg:overflow-x-auto max-lg:overscroll-x-contain max-lg:pt-3 max-lg:pb-6 max-lg:[scrollbar-width:none] sm:pl-8 lg:gap-10 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))]"
       >
         {classes.items.map((item, i) => (
-          <article key={item.title} className="flex w-[78vw] shrink-0 snap-center flex-col sm:w-[44vw] lg:w-[min(28vw,24rem)]">
+          <article key={item.title} className="flex w-[82vw] max-w-sm shrink-0 snap-start flex-col sm:w-[44vw] lg:w-[min(28vw,24rem)] lg:max-w-none">
             <div className="relative">
-              <div className="relative h-[min(34svh,24rem)] overflow-hidden rounded-t-full lg:h-[min(38svh,26rem)]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-t-full lg:aspect-auto lg:h-[min(38svh,26rem)]">
                 <img
                   data-parallax
                   src={stockImages[item.image]}
@@ -69,7 +78,7 @@ export function Classes() {
                   </>
                 )}
               </p>
-              <p className="mt-3 line-clamp-3 text-pretty [@media(max-height:760px)]:line-clamp-2">{item.description}</p>
+              <p className="mt-3 text-pretty lg:line-clamp-3 lg:[@media(max-height:760px)]:line-clamp-2">{item.description}</p>
               <TrackedLink
                 href={contact.whatsapp(`${classes.whatsappPrefix} ${item.title.toLowerCase()}.`)}
                 trackLabel={`class_${i}`}

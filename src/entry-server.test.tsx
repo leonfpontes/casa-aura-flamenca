@@ -1,15 +1,18 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
-import { render } from './entry-server';
+import { head, render } from './entry-server';
 
 describe('pré-renderização', () => {
-  it('gera o HTML da página sem depender do navegador', () => {
-    const html = render();
-    expect(html).toContain('no compás');
+  it('gera o HTML em português sem depender do navegador', () => {
+    const html = render('pt-BR');
+    expect(html).toContain('Escola de flamenco em Ribeirão Preto');
     expect(html).toContain('id="aulas"');
     expect(html).toContain('id="visite"');
-    // Conteúdo de cenas mais abaixo também vem no HTML (SEO e leitura sem JS).
     expect(html).toContain('Carol Robatini');
-    expect(html).toContain('Av. Nove de Julho');
+  });
+
+  it('gera a página em espanhol com o próprio head', () => {
+    expect(render('es')).toContain('Escuela de flamenco en Ribeirão Preto');
+    expect(head('es')).toContain('<title>Clases de Flamenco en Ribeirão Preto | Casa Aura Flamenca</title>');
   });
 });

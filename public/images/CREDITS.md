@@ -18,7 +18,7 @@ Todas as mídias vêm de bancos gratuitos, com licenças que permitem uso comerc
 | images/danca-cigana(.webp, -800.webp) | Pexels | Anya Juárez Tenorio | https://www.pexels.com/photo/30365663/ | Pexels License |
 | images/stiletto-salto(.webp, -800.webp) | Pexels | Inna Mykytas | https://www.pexels.com/photo/16763006/ | Pexels License |
 | images/pilates(.webp, -800.webp) | Pexels | khezez \| خزاز | https://www.pexels.com/photo/35553893/ | Pexels License |
-| images/dancas-circulares(.webp, -800.webp) | Pexels | juliane Monari | https://www.pexels.com/photo/24513670/ | Pexels License |
+| images/dancas-circulares(.webp, -800.webp) | Pexels | T. Zhuravel | https://www.pexels.com/photo/20442411/ | Pexels License |
 | images/aula-flamenco-grupo(.webp, -800.webp) | Pexels | Belén Montero | https://www.pexels.com/photo/33869351/ | Pexels License |
 | videos/hero-flamenco(.mp4, .webm, -poster.jpg, -poster.webp) e videos/hero-flamenco-vertical(.mp4, .webm, -poster.webp) | Pexels | Ines Diaz Cervantes | https://www.pexels.com/video/two-women-are-singing-and-dancing-on-stage-26888983/ | Pexels License |
 | videos/tablao-flamenco(.mp4, .webm, -poster.webp) | Pexels | Eva Navarro | https://www.pexels.com/video/vibrant-flamenco-performance-outdoors-35330824/ | Pexels License |

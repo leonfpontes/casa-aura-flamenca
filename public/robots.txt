@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.casaauraflamenca.com.br/sitemap.xml
+Sitemap: https://casa-aura-flamenca.vercel.app/sitemap.xml

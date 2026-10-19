@@ -18,8 +18,12 @@ export interface SectionHeading {
 }
 
 export interface Meta {
+  /** <title> — até ~60 caracteres, com a busca principal ("aulas de flamenco em Ribeirão Preto"). */
   title: string;
+  /** Meta description — ~150 caracteres, com cidade, diferenciais e chamada. */
   description: string;
+  /** Texto alternativo da imagem de compartilhamento. */
+  imageAlt: string;
 }
 
 export interface Navigation {
@@ -34,6 +38,8 @@ export interface Navigation {
 export interface Hero {
   /** Linha curta acima do título (cidade, tipo de espaço). */
   greeting: string;
+  /** Primeira linha do H1, com a busca local ("Escola de flamenco em Ribeirão Preto"). */
+  kicker: string;
   /** Chamada no canto: leva direto às aulas. */
   badge: string;
   title: string;
@@ -194,6 +200,8 @@ export interface UiStrings {
   readMore: string;
   readLess: string;
   scrollHint: string;
+  /** Dica de gesto nos carrosséis do celular. */
+  swipeHint: string;
   previous: string;
   next: string;
   of: string;

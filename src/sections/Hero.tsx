@@ -31,7 +31,9 @@ export function Hero() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add(MEDIA.motion, () => {
+      // Intro (telón + logo desenhada) só no desktop: no celular o hero aparece pronto —
+      // é o maior elemento da primeira tela, e esperar a cortina atrasaria o carregamento percebido.
+      mm.add(MEDIA.desktop, () => {
         gsap
           .timeline({ defaults: { ease: 'expo.out' } })
           .to('[data-telon-left]', { xPercent: -101, duration: 1.8, ease: 'power3.inOut' }, 0.15)
@@ -44,9 +46,9 @@ export function Hero() {
           .from('[data-logo-artes]', { opacity: 0, x: 16, duration: 0.9 }, 1.9)
           .from('[data-hero-fade]', { opacity: 0, y: 20, duration: 0.8, stagger: 0.08 }, 1.5);
       });
-      // Sem movimento, o telón já começa aberto.
-      mm.add({ moving: MEDIA.motion }, (ctx) => {
-        if (!ctx.conditions?.moving) gsap.set('[data-telon-left], [data-telon-right]', { autoAlpha: 0 });
+      // Sem a intro (celular ou modo suave), o telón já começa aberto.
+      mm.add({ intro: MEDIA.desktop }, (ctx) => {
+        if (!ctx.conditions?.intro) gsap.set('[data-telon-left], [data-telon-right]', { autoAlpha: 0 });
       });
 
       mm.add(MEDIA.desktop, () => {
@@ -148,9 +150,15 @@ export function Hero() {
               <Logo title={`${profile.venue} — ${profile.name}`} className="w-full max-w-[min(48rem,95svh)]" />
             </div>
             <div data-hero-copy className="lg:col-span-5">
-              <SplitReveal as="h1" id="inicio-title" immediate className="display text-[clamp(2.4rem,min(4.4vw,7.5svh),4.25rem)] text-balance">
-                {hero.title} <span className="highlight">{hero.titleHighlight}</span>
-              </SplitReveal>
+              {/* O H1 abre com a busca local, visível: "Escola de flamenco em Ribeirão Preto". */}
+              <h1 id="inicio-title">
+                <span data-hero-fade className="label-caps mb-3 block text-[var(--ouro-claro)]">
+                  {hero.kicker}
+                </span>{' '}
+                <SplitReveal as="span" immediate className="display block text-[clamp(2.4rem,min(4.4vw,7.5svh),4.25rem)] text-balance">
+                  {hero.title} <span className="highlight">{hero.titleHighlight}</span>
+                </SplitReveal>
+              </h1>
               <p data-hero-fade className="mt-[min(1.5rem,2.5svh)] max-w-xl text-pretty text-foreground/80 sm:text-lg">
                 {hero.description}
               </p>
@@ -183,7 +191,8 @@ export function Hero() {
         </Container>
 
         {/* As modalidades da casa correndo como a faixa de um cartaz de temporada. */}
-        <div data-hero-strip className="overflow-hidden border-y border-[var(--ouro)]/40 py-3" aria-label={hero.disciplines.join(', ')}>
+        <div data-hero-strip className="overflow-hidden border-y border-[var(--ouro)]/40 py-3">
+          <p className="sr-only">{hero.disciplines.join(', ')}</p>
           <div className="flex w-max animate-[marquee_40s_linear_infinite]" aria-hidden="true">
             {[0, 1].map((copy) => (
               <ul key={copy} className="flex shrink-0">
@@ -199,7 +208,7 @@ export function Hero() {
         </div>
       </Scene>
       {/* O telón cobre a cena inteira (acima do conteúdo) até se abrir na entrada. */}
-      <Telon className="z-30" />
+      <Telon className="z-30 max-lg:hidden" />
     </div>
   );
 }

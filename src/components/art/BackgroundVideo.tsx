@@ -16,7 +16,8 @@ export interface BackgroundVideoProps {
 /**
  * Vídeo de fundo silencioso em loop. Só toca na tela (pausa fora dela, para não
  * gastar bateria nem dados) e, no modo suave, fica parado no pôster.
- * Sem `autoPlay` no HTML: quem decide tocar é o efeito, já sabendo a preferência.
+ * Sem `autoPlay` no HTML: quem decide tocar é o efeito, já sabendo a preferência,
+ * e só depois que a página terminou de carregar.
  */
 export function BackgroundVideo({ mp4, webm, poster, portrait, className, label }: BackgroundVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -29,14 +30,29 @@ export function BackgroundVideo({ mp4, webm, poster, portrait, className, label 
       video.pause();
       return;
     }
+    let observer: IntersectionObserver | null = null;
+    let cancelled = false;
     const play = () => void video.play().catch(() => {});
-    if (typeof IntersectionObserver === 'undefined') {
-      play();
-      return;
-    }
-    const observer = new IntersectionObserver(([entry]) => (entry?.isIntersecting ? play() : video.pause()), { rootMargin: '100px' });
-    observer.observe(video);
-    return () => observer.disconnect();
+    // O vídeo só começa a baixar depois que a página carregou e o navegador ficou ocioso:
+    // o pôster ocupa o lugar antes, e a primeira tela não disputa banda com ele.
+    const start = () => {
+      if (cancelled) return;
+      video.preload = 'auto';
+      if (typeof IntersectionObserver === 'undefined') return play();
+      observer = new IntersectionObserver(([entry]) => (entry?.isIntersecting ? play() : video.pause()), { rootMargin: '100px' });
+      observer.observe(video);
+    };
+    const idle = () => {
+      if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(start, { timeout: 2500 });
+      else setTimeout(start, 1200);
+    };
+    if (document.readyState === 'complete') idle();
+    else window.addEventListener('load', idle, { once: true });
+    return () => {
+      cancelled = true;
+      observer?.disconnect();
+      window.removeEventListener('load', idle);
+    };
   }, [reduced]);
 
   return (
@@ -45,7 +61,7 @@ export function BackgroundVideo({ mp4, webm, poster, portrait, className, label 
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="none"
       poster={poster}
       aria-label={label}
       aria-hidden={label ? undefined : true}

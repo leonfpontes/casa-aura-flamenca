@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { Locale, SiteContent } from '@/content/types';
 import { safeStorage } from '@/lib/storage';
+import { LOCALE_PATH } from '@/lib/seo/seo';
 import { contentByLocale, DEFAULT_LOCALE, resolveInitialLocale } from './registry';
 
 const STORAGE_KEY = 'aura:locale';
@@ -36,6 +37,15 @@ export function LocaleProvider({ children, initialLocale }: { children: ReactNod
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);
     safeStorage.set(STORAGE_KEY, next);
+    // A URL acompanha o idioma (cada um tem a sua página indexável: / e /es/).
+    try {
+      const path = LOCALE_PATH[next];
+      if (typeof window !== 'undefined' && window.location.pathname !== path) {
+        window.history.replaceState(null, '', path + window.location.hash);
+      }
+    } catch {
+      /* ambiente sem history (testes antigos) — só o conteúdo muda */
+    }
   }, []);
 
   const value = useMemo(() => ({ locale, content, setLocale }), [locale, content, setLocale]);

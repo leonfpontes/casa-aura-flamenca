@@ -33,6 +33,35 @@ npm run preview    # serve o dist/ em http://localhost:4174
 Os itens marcados com `// CONFIRMAR` em `pt-BR.ts` são informações que não puderam ser confirmadas nas fontes
 públicas (Instagram, Linktree, Google Maps). A Carol precisa revisá-los.
 
+## SEO
+
+Tudo é gerado a partir do conteúdo (`src/lib/seo/seo.ts`). O que o Google lê é o que a página mostra.
+
+- **Uma página por idioma, pré-renderizada**: `/` (português) e `/es/` (espanhol). O seletor PT/ES usa links reais.
+- **Head por idioma** (`<!--seo:start-->` no `index.html`, substituído no build):
+  - title com a busca principal ("Aulas de Flamenco em Ribeirão Preto"), até 60 caracteres;
+  - description de até 160 caracteres;
+  - canonical, `hreflang` (`pt-BR`, `es`, `x-default`);
+  - Open Graph e Twitter.
+- **Dados estruturados** (schema.org, JSON-LD):
+  - `DanceSchool`/`LocalBusiness`, com endereço, geo, horários, telefone, redes, equipe e catálogo de aulas (`Course`);
+  - `DanceEvent` do festival, com datas e ingressos na Sympla;
+  - `FAQPage`, `WebSite` e `WebPage`.
+- **H1 com a busca local visível**: "Escola de flamenco em Ribeirão Preto".
+- **Sitemap e afins:**
+  - `sitemap.xml` com as alternativas de idioma e `robots.txt`;
+  - metas de geolocalização;
+  - `manifest.webmanifest`, ícones PNG e `llms.txt` (para buscadores de IA).
+- **Lighthouse** (celular, build de produção): SEO 100, acessibilidade 100, boas práticas 100, desempenho 88.
+
+**URL do site:** é `profile.siteUrl` em `src/content/profile.ts`. Ao ligar um domínio próprio, troque esse valor e as URLs
+de `public/sitemap.xml`, `public/robots.txt` e `public/llms.txt`.
+
+**Próximos passos fora do código** (fazem mais diferença que qualquer ajuste técnico):
+1. Cadastrar o site no [Google Search Console](https://search.google.com/search-console) e enviar o `sitemap.xml`.
+2. Colocar o link do site no **Perfil da Empresa no Google** (Maps), no Instagram e no Linktree.
+3. Pedir aos alunos que continuem avaliando no Google.
+
 ## Mídia
 
 As fotos e os vídeos são **ilustrativos**, de bancos gratuitos (Pexels, Unsplash, Pixabay), com licenças que permitem
@@ -52,5 +81,4 @@ Os traçados são definidos uma única vez, em `<symbol>`, pelo `LogoSprite`.
 
 ## Deploy
 
-Pronto para a Vercel (`vercel.json`). O domínio `casaauraflamenca.com.br`, usado nos metadados (`index.html`,
-`profile.ts`, `sitemap.xml`, `robots.txt`), é uma **suposição**: ajuste quando o domínio for definido.
+Pronto para a Vercel (`vercel.json`). Hoje o endereço é `https://casa-aura-flamenca.vercel.app` (veja **SEO** para trocar pelo domínio próprio).

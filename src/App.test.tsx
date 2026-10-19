@@ -30,7 +30,7 @@ describe('<App />', () => {
 
   it('renderiza o título principal e todas as seções numeradas', () => {
     renderApp();
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/no compás/i);
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/Escola de flamenco em Ribeirão Preto.*no compás/i);
     for (const id of ['casa', 'aulas', 'compas', 'professores', 'depoimentos', 'agenda', 'faq', 'visite']) {
       expect(document.getElementById(id)).toBeInTheDocument();
     }
@@ -59,8 +59,9 @@ describe('<App />', () => {
 
   it('troca o idioma para espanhol e persiste a escolha', async () => {
     const { user, track } = renderApp();
-    await user.click(screen.getByRole('button', { name: 'ES' }));
+    await user.click(screen.getByRole('link', { name: 'ES' }));
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/a compás/i);
+    expect(window.location.pathname).toBe('/es/');
     expect(document.documentElement.lang).toBe('es');
     expect(localStorage.getItem('aura:locale')).toBe('es');
     expect(track).toHaveBeenCalledWith('language_change', { label: 'es' });

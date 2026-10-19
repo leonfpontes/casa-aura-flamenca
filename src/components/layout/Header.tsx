@@ -6,6 +6,7 @@ import { Container } from '@/components/common/Section';
 import { TrackedLink } from '@/components/common/TrackedLink';
 import { profile } from '@/content/profile';
 import { SUPPORTED_LOCALES } from '@/lib/i18n/registry';
+import { LOCALE_PATH } from '@/lib/seo/seo';
 import { useLocale } from '@/lib/i18n/LocaleProvider';
 import { useSceneDirector } from '@/lib/motion/SceneDirector';
 import { useServices } from '@/lib/services';
@@ -77,14 +78,20 @@ export function Header() {
             {SUPPORTED_LOCALES.map((code, i) => (
               <span key={code} className="flex items-center">
                 {i > 0 && <span className="px-1 text-muted-foreground">/</span>}
-                <button
-                  type="button"
-                  onClick={() => changeLocale(code)}
-                  aria-pressed={locale === code}
+                {/* Link de verdade (rastreável): cada idioma tem a sua URL. O clique troca sem recarregar. */}
+                <a
+                  href={LOCALE_PATH[code]}
+                  hrefLang={code}
+                  lang={code}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    changeLocale(code);
+                  }}
+                  aria-current={locale === code ? 'true' : undefined}
                   className={cn('cursor-pointer px-0.5 py-2', locale === code ? 'text-foreground underline underline-offset-4' : 'text-muted-foreground hover:text-foreground')}
                 >
                   {code === 'pt-BR' ? 'PT' : code.toUpperCase()}
-                </button>
+                </a>
               </span>
             ))}
           </div>
