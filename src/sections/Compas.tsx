@@ -83,7 +83,7 @@ export function Compas() {
 
           <Reveal className="lg:col-span-7">
             <div id="compas-painel" role="tabpanel" className="grid items-center gap-8 sm:grid-cols-2">
-              <div className="relative mx-auto aspect-square w-full max-w-xs">
+              <div className="relative mx-auto mt-24 aspect-square w-full max-w-xs sm:mt-16 lg:mt-0">
                 {/* O leque abre por trás da roda — o pino do leque é o centro do relógio. */}
                 <div data-compas-fan aria-hidden="true" className="absolute inset-x-[-30%] top-[-30%] opacity-60" style={{ ['--open' as string]: 1 }}>
                   <Abanico pleats={19} spread={200} />

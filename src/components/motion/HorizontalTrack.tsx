@@ -23,6 +23,10 @@ interface HorizontalTrackProps {
   snap?: boolean;
   /** Mostra "01 / 04" e a régua de progresso abaixo do trilho. */
   showProgress?: boolean;
+  /** Conteúdo fixado junto com o trilho, acima dele (ex.: o título da seção, que não deve sumir). */
+  header?: ReactNode;
+  /** Classes do bloco fixado (o que fica preso abaixo do header do site). */
+  pinClassName?: string;
 }
 
 /**
@@ -34,7 +38,7 @@ interface HorizontalTrackProps {
  * devagar (profundidade). Sem movimento permitido, vira um carrossel nativo
  * com swipe e scroll-snap.
  */
-export function HorizontalTrack({ children, media = 'all', className, label, pace = 0.85, snap = true, showProgress = true }: HorizontalTrackProps) {
+export function HorizontalTrack({ children, media = 'all', className, label, pace = 0.85, snap = true, showProgress = true, header, pinClassName }: HorizontalTrackProps) {
   const pinRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
@@ -95,7 +99,8 @@ export function HorizontalTrack({ children, media = 'all', className, label, pac
   const horizontal = count > 0;
 
   return (
-    <div ref={pinRef} role="group" aria-label={label} className="relative min-w-0">
+    <div ref={pinRef} role="group" aria-label={label} className={cn('relative min-w-0', pinClassName)}>
+      {header}
       <div
         ref={trackRef}
         className={cn(

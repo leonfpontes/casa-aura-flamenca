@@ -56,9 +56,22 @@ export const stockImages = {
   aulaFlamenco: '/images/aula-flamenco-grupo-800.webp',
 } as const;
 
-/** Enquadramento das fotos que não são centradas (ex.: a dançarina embaixo do quadro). */
+/**
+ * Enquadramento (object-position) de cada foto nos arcos. O arco corta os cantos
+ * de cima, então o rosto precisa ficar abaixo da cúpula e centrado: cada valor
+ * foi calculado pela posição do rosto/corpo na foto e pela proporção do arco.
+ */
 export const stockImagePosition: Partial<Record<keyof typeof stockImages, string>> = {
-  stiletto: 'center 75%',
+  aulaFlamenco: 'center 55%',
+  braceo: '45% 0%',
+  cajon: 'center 18%',
+  dancaDoVentre: '58% 24%',
+  dancaCigana: 'center 0%',
+  stiletto: '40% 50%',
+  yoga: '68% center',
+  pilates: '45% 35%',
+  circulares: '55% 43%',
+  tablao: 'center 40%',
 };
 
 export type StockImage = keyof typeof stockImages;
@@ -70,6 +83,8 @@ export const stockVideos = {
     poster: '/videos/hero-flamenco-poster.webp',
     portrait: { mp4: '/videos/hero-flamenco-vertical.mp4', webm: '/videos/hero-flamenco-vertical.webm', poster: '/videos/hero-flamenco-vertical-poster.webp' },
   },
+  /** A bailaora inteira, em pé: o vídeo que pousa no arco do hero. */
+  heroVertical: { mp4: '/videos/hero-flamenco-vertical.mp4', webm: '/videos/hero-flamenco-vertical.webm', poster: '/videos/hero-flamenco-vertical-poster.webp' },
   tablao: { mp4: '/videos/tablao-flamenco.mp4', webm: '/videos/tablao-flamenco.webm', poster: '/videos/tablao-flamenco-poster.webp' },
   guitarra: { mp4: '/videos/guitarra-detalhe.mp4', webm: '/videos/guitarra-detalhe.webm', poster: '/videos/guitarra-detalhe-poster.webp' },
 } as const;

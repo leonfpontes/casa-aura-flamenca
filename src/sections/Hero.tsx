@@ -5,7 +5,7 @@ import { Telon } from '@/components/art/Telon';
 import { Logo } from '@/components/brand/Logo';
 import { Button } from '@/components/ui/button';
 import { Arrow } from '@/components/common/Arrow';
-import { Container, Remate } from '@/components/common/Section';
+import { Container } from '@/components/common/Section';
 import { TrackedLink } from '@/components/common/TrackedLink';
 import { CountUp } from '@/components/motion/CountUp';
 import { Scene } from '@/components/motion/Scene';
@@ -16,11 +16,12 @@ import { gsap, MEDIA, useGSAP } from '@/lib/motion/gsap';
 import { useServices } from '@/lib/services';
 
 /**
- * Abertura em três tempos, como uma noite de tablao:
- * 1. o telón se abre e revela o palco (vídeo tingido de vinho, lunares no compás);
+ * Abertura, como uma noite de tablao:
+ * 1. o telón se abre sobre o palco (vídeo tingido de vinho, lunares no compás);
  * 2. a logo é "desenhada" — as letras sobem e o traço dourado corre da bailarina até a ponta;
- * 3. ao rolar, a cena fica no palco (fixa) enquanto o vídeo se recolhe num arco
- *    andaluz e a logo sobe — só então o Ato I entra.
+ * 3. ao rolar (desktop), a cena fica fixa: logo e texto se afastam para os lados
+ *    como as folhas do telón, o palco escurece e a bailaora — inteira, no vídeo
+ *    vertical — encolhe para dentro de um arco andaluz no centro. Só então o Ato I sobe.
  */
 export function Hero() {
   const { hero, contact: contactCopy } = useContent();
@@ -31,9 +32,8 @@ export function Hero() {
     () => {
       const mm = gsap.matchMedia();
       mm.add(MEDIA.motion, () => {
-        const intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
-        intro
-          // O telón se abre: as folhas correm para os lados, com um leve atraso entre elas.
+        gsap
+          .timeline({ defaults: { ease: 'expo.out' } })
           .to('[data-telon-left]', { xPercent: -101, duration: 1.8, ease: 'power3.inOut' }, 0.15)
           .to('[data-telon-right]', { xPercent: 101, duration: 1.8, ease: 'power3.inOut' }, 0.22)
           .from('[data-hero-meta]', { opacity: 0, y: -12, duration: 0.6, stagger: 0.06 }, 0.9)
@@ -42,7 +42,7 @@ export function Hero() {
           // O traço dourado é "desenhado" da esquerda (a bailarina) para a direita.
           .fromTo('[data-logo-ornament]', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 1.6, ease: 'power2.inOut' }, 1.2)
           .from('[data-logo-artes]', { opacity: 0, x: 16, duration: 0.9 }, 1.9)
-          .from('[data-hero-fade]', { opacity: 0, y: 20, duration: 0.8, stagger: 0.08 }, 1.6);
+          .from('[data-hero-fade]', { opacity: 0, y: 20, duration: 0.8, stagger: 0.08 }, 1.5);
       });
       // Sem movimento, o telón já começa aberto.
       mm.add({ moving: MEDIA.motion }, (ctx) => {
@@ -50,28 +50,40 @@ export function Hero() {
       });
 
       mm.add(MEDIA.desktop, () => {
-        // A cena fica no palco por mais uma tela: o vídeo se recolhe num arco,
-        // a logo sobe e encolhe, o texto sai — e só depois o Ato I sobe.
         const tl = gsap.timeline({
           defaults: { ease: 'none' },
-          scrollTrigger: { trigger: ref.current, pin: true, start: 'top top', end: '+=110%', scrub: 0.6, anticipatePin: 1 },
+          scrollTrigger: { trigger: ref.current, pin: true, start: 'top top', end: '+=130%', scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true },
         });
-        tl.to('[data-hero-copy]', { opacity: 0, y: -60 }, 0)
-          .to('[data-hero-strip]', { opacity: 0, y: 40 }, 0)
-          .to('[data-hero-logo]', { scale: 0.5, yPercent: -30 }, 0)
+        // Medidas do arco final: 76% da altura da tela, na proporção do vídeo (9:16).
+        const archH = () => window.innerHeight * 0.76;
+        const archW = () => (archH() * 9) / 16;
+        tl.to('[data-hero-logo]', { xPercent: -40, opacity: 0, duration: 0.45 }, 0)
+          .to('[data-hero-copy]', { xPercent: 40, opacity: 0, duration: 0.45 }, 0)
+          .to('[data-hero-strip]', { y: 60, opacity: 0, duration: 0.35 }, 0)
+          .to('[data-hero-meta]', { opacity: 0, duration: 0.3 }, 0)
+          // O palco se fecha em volta da bailaora: a tela inteira vira um arco no centro.
           .fromTo(
-            '[data-hero-stage]',
-            { clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)' },
-            { clipPath: 'inset(22% 35% 6% 35% round 999px 999px 0px 0px)' },
-            0,
+            '[data-hero-window]',
+            { width: () => window.innerWidth, height: () => window.innerHeight, marginBottom: 0, borderTopLeftRadius: 0, borderTopRightRadius: 0 },
+            {
+              width: archW,
+              height: archH,
+              marginBottom: () => window.innerHeight * 0.06,
+              borderTopLeftRadius: () => archW() / 2,
+              borderTopRightRadius: () => archW() / 2,
+              duration: 1,
+              ease: 'power1.inOut',
+            },
+            0.05,
           )
-          .to('[data-hero-video]', { scale: 1.25 }, 0)
-          .to('[data-hero-arch]', { opacity: 1 }, 0.6);
+          .to('[data-hero-tint]', { opacity: 0.15, duration: 0.8 }, 0.15)
+          .fromTo('[data-hero-frame]', { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.25, stagger: 0.05 }, 0.85)
+          .fromTo('[data-hero-window-caption]', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.2 }, 0.9);
       });
       mm.add(MEDIA.mobile, () => {
         // Celular: sem fixar (o hero é mais alto que a tela); o vídeo aproxima e a logo sobe.
         const exit = { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true };
-        gsap.to('[data-hero-video]', { scale: 1.2, ease: 'none', scrollTrigger: exit });
+        gsap.to('[data-hero-video]', { scale: 1.15, ease: 'none', scrollTrigger: exit });
         gsap.to('[data-hero-logo]', { yPercent: -20, opacity: 0.3, ease: 'none', scrollTrigger: exit });
       });
     },
@@ -85,32 +97,42 @@ export function Hero() {
         label={hero.greeting}
         tone="vinho"
         customTransition
-        className="min-h-svh pt-20 pb-0 lg:py-0 lg:pt-20"
+        className="pt-20 pb-0 lg:h-svh lg:min-h-[40rem] lg:py-0 lg:pt-20"
         art={
           <>
-            {/* O palco: vídeo de flamenco tingido de vinho. No scroll, ele se recolhe num arco. */}
-            <div data-hero-stage className="absolute inset-0 overflow-hidden">
-              <div data-hero-video className="absolute inset-0">
-                <BackgroundVideo {...stockVideos.hero} label={hero.mediaAlt} className="object-[70%_center] opacity-85" />
+            {/*
+              O palco é um único vídeo (vertical, a bailaora centrada e de corpo inteiro).
+              Começa cobrindo a tela; no scroll (desktop) o próprio palco se fecha num arco
+              em volta dela — sem troca de vídeo, sem salto.
+            */}
+            <div className="absolute inset-0 flex items-end justify-center">
+              <div data-hero-window className="relative h-full w-full overflow-hidden">
+                <div data-hero-video className="absolute inset-0">
+                  <BackgroundVideo {...stockVideos.heroVertical} label={hero.mediaAlt} className="object-[center_30%]" />
+                </div>
+                <div data-hero-tint className="absolute inset-0 bg-[var(--vinho)]/70" />
+                <div data-hero-tint className="absolute inset-0 bg-gradient-to-r from-[var(--vinho)] via-transparent to-[var(--vinho)]/60 max-lg:hidden" />
+                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[var(--vinho)]/80 to-transparent" />
+                <p data-hero-window-caption className="label-caps absolute inset-x-0 bottom-6 text-center text-[var(--marfim)] opacity-0">
+                  {hero.greeting}
+                </p>
               </div>
-              <div className="absolute inset-0 bg-[var(--vinho)]/40 mix-blend-multiply" />
-              {/* O vídeo-fonte é vertical: a metade esquerda (fundo desfocado) fica no escuro, a bailaora à direita. */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[var(--vinho)]/90 via-[var(--vinho)]/60 via-45% to-transparent max-lg:hidden" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_15%,var(--vinho)_88%)]" />
             </div>
-            {/* Contorno dourado do arco, que aparece quando o palco termina de se recolher. */}
-            <div
-              data-hero-arch
-              className="absolute top-[22%] right-[35%] bottom-[6%] left-[35%] hidden rounded-t-full border border-[var(--ouro)] opacity-0 lg:block"
-            />
-            <div className="absolute inset-0 text-foreground [mask-image:radial-gradient(ellipse_at_center,transparent_35%,black_85%)]">
+            {/* Moldura dupla dourada do arco final (aparece quando o palco termina de se fechar). */}
+            <div className="pointer-events-none absolute inset-0 hidden items-end justify-center pb-[6svh] lg:flex">
+              <div className="relative h-[76svh] w-[calc(76svh*9/16)]">
+                <div data-hero-frame className="absolute -inset-3 rounded-t-full border border-[var(--ouro)] opacity-0" />
+                <div data-hero-frame className="absolute -inset-6 rounded-t-full border border-[var(--ouro)]/40 opacity-0" />
+              </div>
+            </div>
+            <div className="absolute inset-0 text-foreground [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black_80%)]">
               <Lunares />
             </div>
           </>
         }
       >
-        <Container className="flex min-h-[calc(100svh-5rem)] flex-col">
-          <div className="label-caps flex flex-wrap items-center justify-between gap-3 pb-3 text-muted-foreground">
+        <Container>
+          <div className="label-caps flex flex-wrap items-center justify-between gap-3 border-b border-foreground/25 pb-3 text-muted-foreground">
             <span data-hero-meta>{hero.greeting}</span>
             <span data-hero-meta className="hidden sm:inline">
               {profile.cities.join(' · ')}
@@ -121,23 +143,19 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Composição de cartel: tudo centrado, como no palco. */}
-          <div className="flex flex-1 flex-col items-center justify-center py-6 text-center">
-            <div data-hero-logo className="w-full max-w-[min(52rem,92vw)] origin-top">
-              <Logo title={`${profile.venue} — ${profile.name}`} className="w-full" />
+          <div className="grid items-center gap-10 py-10 lg:grid-cols-12 lg:py-[min(3.5rem,4svh)]">
+            <div data-hero-logo className="lg:col-span-7">
+              <Logo title={`${profile.venue} — ${profile.name}`} className="w-full max-w-[min(48rem,95svh)]" />
             </div>
-            <div data-hero-copy className="mt-6 flex flex-col items-center">
-              <div data-hero-fade>
-                <Remate />
-              </div>
-              <SplitReveal as="h1" id="inicio-title" immediate className="display mt-5 max-w-3xl text-[clamp(2rem,4vw,3.5rem)] text-balance">
+            <div data-hero-copy className="lg:col-span-5">
+              <SplitReveal as="h1" id="inicio-title" immediate className="display text-[clamp(2.4rem,min(4.4vw,7.5svh),4.25rem)] text-balance">
                 {hero.title} <span className="highlight">{hero.titleHighlight}</span>
               </SplitReveal>
-              <p data-hero-fade className="mt-4 max-w-2xl text-pretty text-foreground/80 sm:text-lg">
+              <p data-hero-fade className="mt-[min(1.5rem,2.5svh)] max-w-xl text-pretty text-foreground/80 sm:text-lg">
                 {hero.description}
               </p>
-              <div data-hero-fade className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
-                <Button asChild variant="signal" size="lg" className="group h-12 rounded-full px-7 text-base">
+              <div data-hero-fade className="mt-[min(2rem,3.5svh)] flex flex-wrap items-center gap-x-6 gap-y-4">
+                <Button asChild variant="signal" size="lg" className="group h-12 px-7 text-base">
                   <TrackedLink href="#aulas" trackLabel="hero_classes">
                     {hero.primaryCta} <Arrow />
                   </TrackedLink>
@@ -149,26 +167,19 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Cartel de números: separados por estrelas douradas, não por fios. */}
-          <div data-hero-strip>
-            <dl data-hero-fade className="mb-6 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:gap-x-10">
-              {hero.stats.map((stat, i) => (
-                <div key={stat.label} className="flex items-end gap-6 sm:gap-10">
-                  {i > 0 && (
-                    <span aria-hidden="true" className="mb-4 hidden text-[var(--ouro)] sm:block">
-                      ✦
-                    </span>
-                  )}
-                  <div className="flex flex-col-reverse items-center gap-1">
-                    <dt className="label-caps text-muted-foreground">{stat.label}</dt>
-                    <dd className="font-display text-4xl leading-none text-signal sm:text-5xl">
-                      <CountUp value={stat.value} />
-                    </dd>
-                  </div>
-                </div>
-              ))}
-            </dl>
-          </div>
+          <dl data-hero-strip data-hero-fade className="mb-[min(2rem,3svh)] grid grid-cols-2 border-t border-[var(--ouro)]/50 md:grid-cols-4">
+            {hero.stats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`flex flex-col-reverse justify-end gap-1 border-b border-foreground/20 py-4 pr-4 md:border-b-0 ${i % 2 ? 'border-l border-foreground/20 pl-4' : ''} ${i > 0 ? 'md:border-l md:pl-5' : ''}`}
+              >
+                <dt className="label-caps text-muted-foreground">{stat.label}</dt>
+                <dd className="font-display text-4xl leading-none text-signal sm:text-[clamp(2.5rem,6.5svh,3.75rem)]">
+                  <CountUp value={stat.value} />
+                </dd>
+              </div>
+            ))}
+          </dl>
         </Container>
 
         {/* As modalidades da casa correndo como a faixa de um cartaz de temporada. */}
